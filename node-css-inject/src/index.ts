@@ -25,7 +25,7 @@ async function injectCSS() {
     // Find and replace the stylesheet link
     const styleRegex =
       /<link[^>]*id="main"[^>]*rel="stylesheet"[^>]*>|<link[^>]*rel="stylesheet"[^>]*id="main"[^>]*>/;
-    const newStyleLink = `<link rel="stylesheet" href="${assetsGateway}/ipfs/${newCid}?filename=styles.css">`;
+    const newStyleLink = `<link id="main" rel="stylesheet" href="${assetsGateway}/ipfs/${newCid}?filename=styles.css">`;
 
     console.log("newStyleLink", newStyleLink);
 
