@@ -38,6 +38,8 @@ export const renderHTML = async (
     }
 
     const templateArray = await response.json();
+    console.log("templateArray", templateArray);
+
     const templateFile = templateArray.find((t: any) =>
       t.path.includes(templateConfig.file),
     );
