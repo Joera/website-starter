@@ -1100,9 +1100,11 @@
         console.error("Empty template after cleaning");
         return "";
       }
+      console.log(templateData2);
       const partialFiles = templateArray.filter(
         (t) => t.path.includes("partials/")
       );
+      console.log("partials", partialFiles);
       const result = await processPartials(template, partialFiles, templateData2);
       if (!result) {
         console.error("Empty result after processing");

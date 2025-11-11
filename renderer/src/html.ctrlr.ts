@@ -11,6 +11,9 @@ export const renderHTML = async (
   templateData: any,
 ) => {
   try {
+
+    console.log("config", config);
+    console.log("templateConfig", templateConfig)
     // Validate inputs
     if (!config?.template_cid || !templateConfig?.file) {
       console.error("Missing required config:", {
@@ -78,12 +81,16 @@ export const renderHTML = async (
       return "";
     }
 
-    // console.log(templateData);
+    console.log("templateArray",templateData);
 
     // Find and process partials
     const partialFiles = templateArray.filter((t: any) =>
       t.path.includes("partials/"),
     );
+
+
+    console.log("partials",partialFiles)
+
     const result = await processPartials(template, partialFiles, templateData);
 
     if (!result) {
