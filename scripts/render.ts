@@ -21,7 +21,7 @@ const STREAM_IDS = [
   // "kjzl6kcym7w8y8ndg42hmo8grula1ap61dm74dqu1wls9d5lgtk1px8h2fqtiac",
 ];
 const publication = "block001.soul2souleth";
-const safeAddress = "0x04660132323Fe65C5BaF9107Cfe8a941386b4EAF";
+const authorSafeAddress = "0x04660132323Fe65C5BaF9107Cfe8a941386b4EAF";
 
 const epk = process.env.PRIVATE_KEY_UNAMORE || process.env.PRIVATE_KEY || "";
 const SELECTED_LIT_NETWORK = LIT_NETWORK.Datil;
@@ -30,6 +30,8 @@ const main = async () => {
   const protocolInfo: any = await getProtocolInfo();
 
   let render_action = await uploadToPinata("./renderer/dist/main.js");
+
+  console.log("render_action", render_action);
 
   const litNodeClient = new LitNodeClient({
     litNetwork: SELECTED_LIT_NETWORK,
@@ -109,9 +111,10 @@ const main = async () => {
       sessionSigs: sessionSignatures,
       ipfsId: protocolInfo.lit_action_main,
       jsParams: {
-        safeAddress,
+        authorSafeAddress,
         publication,
-        stream_id: STREAM_IDS,
+        stream_ids: STREAM_IDS,
+        render_action_cid: render_action.IpfsHash,
         publish: true,
         dev: true,
       },
