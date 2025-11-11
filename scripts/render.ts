@@ -1,6 +1,7 @@
 import { LitNodeClient } from "@lit-protocol/lit-node-client";
 import { LIT_ABILITY, LIT_NETWORK, LIT_RPC } from "@lit-protocol/constants";
 import * as ethers from "ethers";
+import { ethers as ethers5, Wallet as Wallet5, providers } from "ethers5";
 import "dotenv/config";
 import { LitContracts } from "@lit-protocol/contracts-sdk";
 import {
@@ -39,10 +40,8 @@ const main = async () => {
   });
 
   await litNodeClient.connect();
-  const ethersWallet = new ethers.Wallet(
-    epk,
-    new ethers.providers.JsonRpcProvider(LIT_RPC.CHRONICLE_YELLOWSTONE),
-  );
+  const provider5 = new providers.JsonRpcProvider(LIT_RPC.CHRONICLE_YELLOWSTONE);
+  const ethersWallet = new Wallet5(epk, provider5);
 
   let capacityTokenId: string = "";
   if (!process.env.CAPACITY_TOKEN_ID) {
