@@ -41,7 +41,7 @@ export const renderHTML = async (
     }
 
     const templateArray = await response.json();
-    // console.log("templateArray", templateArray);
+    console.log("templateArray", templateArray);
 
     const templateFile = templateArray.find((t: any) =>
       t.path.includes(templateConfig.file),
@@ -81,7 +81,7 @@ export const renderHTML = async (
       return "";
     }
 
-    console.log("templateArray",templateData);
+
 
     // Find and process partials
     const partialFiles = templateArray.filter((t: any) =>
