@@ -4,6 +4,19 @@
   --greybackground:rgba(184, 184, 185, 1);
 }
 
+body {
+  /* font-family: "Gotham A", "Gotham B";
+  font-style: normal; */
+  /* font-weight: 500; */
+  color: white;
+  font-size: 1.125rem;
+  font-family: "Ringside Regular Office A", "Ringside Regular Office B";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.55;
+
+}
+
 h1 {
   font-family: "Gotham A", "Gotham B";
   font-style: normal;
@@ -18,14 +31,13 @@ h1 span {
 }
 
 h2 {
-  font-family: "Quarto A", "Quarto B";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 3.8rem;
+
+  font-size: 2.8rem;
   line-height: 1.025;
-  margin: 0 0 1.5rem 0;
-  font-style: italic;
-  text-transform: lowercase;
+  /* margin: 0 0 1.5rem 0; */
+  font-family: "Knockout 70 A", "Knockout 70 B";
+  font-style: normal;
+  font-weight: 400;
 }
 
 h3 {
@@ -117,6 +129,11 @@ body {
 
 main {
   position: relative;
+  min-height: 100vh;
+}
+
+main #background {
+  position: absolute;
 }
 
 .container {
@@ -190,3 +207,45 @@ main {
 }
 
 /*# sourceMappingURL=styles.css.map */
+#blog_container {
+
+    padding-top: 40rem;
+    position: relative;
+}
+
+header { 
+  margin-bottom: -120px;
+}
+
+header .large_container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+header #logo {
+
+  width: 360px; 
+  margin-bottom: -210px;
+  margin-top: -60px;
+}
+
+header h1 {
+  text-transform: none; 
+  color: #0081b0;
+  font-family: "Ringside Narrow A", "Ringside Narrow B";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.2rem;
+
+}
+
+article .date {
+
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}

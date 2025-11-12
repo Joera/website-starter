@@ -9,7 +9,7 @@
         {
         "reference": "post",
         "file": "post.handlebars",
-        "path": "/nieuwsbrieven/{slug}/",
+        "path": "/posts/{slug}/",
         "collections": []
         }
     ],
