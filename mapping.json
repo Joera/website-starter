@@ -26,7 +26,7 @@
       "origins": ["post"],
       "destination": "homepage",
       "reference": "homepage",
-      "query": ""
+      "query": { "method" : "queryById", "args": ["54448954727229358281909069259067375869922783170982400905953080041361301566647"]}
       }
     ]
 }
