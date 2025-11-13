@@ -89,7 +89,7 @@ export const renderHTML = async (
     );
 
 
-    console.log("partials",partialFiles)
+    // console.log("partials",partialFiles)
 
     const result = await processPartials(template, partialFiles, templateData);
 
