@@ -74,40 +74,36 @@ export const addressFromBytes = (
 export const getRecords = async (moduleAddress: string, keys: string[]) => {
 
 
-        const l2Provider = new ethers.JsonRpcProvider(
-            `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
-            { chainId: 8453, name: "base" }
-        );
+      const l2Provider = new ethers.JsonRpcProvider(
+          `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+          { chainId: 8453, name: "base" }
+      );
 
-        const module = new ethers.Contract(
-            moduleAddress,  
-            [
-                {"inputs": [
-        {
-          "internalType": "string[]",
-          "name": "keys",
-          "type": "string[]"
-        }
-      ],
-      "name": "getRecords",
-      "outputs": [
-        {
-          "internalType": "string[]",
-          "name": "values",
-          "type": "string[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function" }
-            ],
-            l2Provider
-        );
+      const module = new ethers.Contract(
+          moduleAddress,  
+          [
+              {"inputs": [
+      {
+        "internalType": "string[]",
+        "name": "keys",
+        "type": "string[]"
+      }
+    ],
+    "name": "getRecords",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "values",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function" }
+          ],
+          l2Provider
+      );
 
-      return await module.getRecords(keys);
-
-
-
-
+    return await module.getRecords(keys);
 }
 
 export const getProtocolControllerAndModules = async () => {
