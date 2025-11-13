@@ -130,7 +130,7 @@ const main = async () => {
 
     const response = JSON.parse(action.response);
 
-    console.log(response)
+    console.log("res", response)
 
     if (response.cborRootCid) {
       const folder = "./html";
