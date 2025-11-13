@@ -12,8 +12,8 @@ export const renderHTML = async (
 ) => {
   try {
 
-    console.log("config", config);
-    console.log("templateConfig", templateConfig)
+    // console.log("config", config);
+    // console.log("templateConfig", templateConfig)
     // Validate inputs
     if (!config?.template_cid || !templateConfig?.file) {
       console.error("Missing required config:", {
