@@ -1076,7 +1076,6 @@
         return "";
       }
       const templateArray = await response.json();
-      console.log("templateArray", templateArray);
       const templateFile = templateArray.find(
         (t) => t.path.includes(templateConfig2.file)
       );
