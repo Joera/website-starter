@@ -4,7 +4,15 @@
         "reference": "homepage",
         "file": "homepage.handlebars",
         "path": "/",
-        "collections": []
+        "collections": [
+          {
+            "slug": "posts",
+            "source": "lens",
+            "key": "posts",
+            "value": "post",
+            "query": ""
+          }
+        ]
         },
         {
         "reference": "post",
@@ -14,6 +22,11 @@
         }
     ],
     "ripples": [
-
+      {
+      "origins": ["post"],
+      "destination": "homepage",
+      "reference": "homepage",
+      "query": ""
+      }
     ]
 }
