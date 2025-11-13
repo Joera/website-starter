@@ -15,14 +15,11 @@ body {
   font-weight: 400;
   line-height: 1.55;
 
+  @media (max-width: 600px) {
 
-    @media (max-width: 600px) {
-
-      font-size: 1rem;
-      line-height: 1.35;
-    }
-
-
+    font-size: 1rem;
+    line-height: 1.35;
+  }
 }
 
 h1 {
@@ -34,6 +31,7 @@ h1 {
   font-size: 1.8rem;
   line-height: 1.8;
 }
+
 h1 span {
   font-weight: 500;
 }
@@ -41,11 +39,11 @@ h1 span {
 h2 {
 
   font-size: 2.8rem;
-  line-height: 1.025;
-  /* margin: 0 0 1.5rem 0; */
+  line-height: .9;
   font-family: "Knockout 70 A", "Knockout 70 B";
   font-style: normal;
   font-weight: 400;
+  margin: 0 0 .5rem 0;
 }
 
 h3 {
@@ -55,7 +53,6 @@ h3 {
   font-size: 1.9rem;
   line-height: 1.1;
   margin: 0;
-
 }
 
 article h3 {
@@ -69,7 +66,6 @@ h4, h5, h6 {
   font-size: 1.9rem;
   line-height: 1.1;
   margin: 0;
-
 }
 
 a {
@@ -215,7 +211,7 @@ main #background {
 /*# sourceMappingURL=styles.css.map */
 #blog_container {
 
-    padding-top: 40rem;
+    padding-top: 25rem;
     position: relative;
 
     @media (max-width: 600px) {
