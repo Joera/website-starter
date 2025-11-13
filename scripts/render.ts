@@ -14,11 +14,12 @@ import { uploadToPinata } from "./pinata";
 import { clearFolder } from "./fs";
 import { downloadHTML } from "./ipfs";
 import { getProtocolInfo } from "./protocol";
+import { LocalConfigBuilder } from "./local-config-builder";
 
 const STREAM_IDS = [
   "34181876520727506972927557866018337454821455712420252335586679347441041426936",
 ];
-const publication = "block003.soul2soul.eth";
+const publication = "block001.soul2soul.eth";
 const authorSafeAddress = "0x04660132323Fe65C5BaF9107Cfe8a941386b4EAF";
 
 const epk = process.env.PRIVATE_KEY_UNAMORE || process.env.PRIVATE_KEY || "";
@@ -27,9 +28,15 @@ const SELECTED_LIT_NETWORK = LIT_NETWORK.Datil;
 const main = async () => {
   const protocolInfo: any = await getProtocolInfo();
 
-  let render_action = await uploadToPinata("./renderer/dist/main.js");
+  const builder = new LocalConfigBuilder(
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0MzNhYjNkMS02YTZjLTQzMGUtODhkZC03Yzc0Y2MyZmQzMDkiLCJlbWFpbCI6ImpvZXJhQGpvZXJhbXVsZGVycy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiNDdlMTk2ZDI2ODNjMzNhMWJmNDUiLCJzY29wZWRLZXlTZWNyZXQiOiI4MjE0NDY0YTAyOTlmMmE1OGU4MzcwNWI4NWYxNTNjMTQ1Mzc2YWY3ODc1N2ZjOWI5NTM3YjBjNWFiZGQyNWY0IiwiZXhwIjoxNzc1MDU1NTAyfQ.PnFMDGxYGbzfqFjcENNgSEi393Pi5qE0ebZPOBEJUVk',
+          'https://neutralpress.mypinata.cloud',
+          'https://ipfs.transport-union.dev'
+        );
 
-  console.log("render_action", render_action);
+  const { config, cid: configCid } = await builder.buildConfig(publication,"");
+
+  console.log("render_action", config.render_action);
 
   const litNodeClient = new LitNodeClient({
     litNetwork: SELECTED_LIT_NETWORK,
@@ -110,7 +117,7 @@ const main = async () => {
         authorSafeAddress,
         publication,
         stream_ids: STREAM_IDS,
-        render_action_cid: render_action.IpfsHash,
+        config_cid: configCid,
         publish: true,
         dev: true,
       },
@@ -120,10 +127,12 @@ const main = async () => {
 
     const response = JSON.parse(action.response);
 
-    if (response.rootCid) {
+    console.log("res", response)
+
+    if (response.cborRootCid) {
       const folder = "./html";
       clearFolder(folder);
-      await downloadHTML(response.rootCid, folder);
+      await downloadHTML(response.cborRootCid, folder);
     }
   } catch (error) {
     console.error("Error deploying action:", error);

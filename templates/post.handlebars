@@ -5,9 +5,13 @@
 <body id="blog">
     {{> header}}
     <main>
+        {{> background }}
+
         <section id="blog_container" class="container small_container">
           
-            <article class="blog">           
+            <article class="blog">   
+                <h2>{{title}}</h2> 
+                <span class="date">{{ formatDate creationDate }}</span>       
                 {{{extract_images content}}}          
             </article>
         

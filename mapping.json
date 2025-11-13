@@ -4,16 +4,31 @@
         "reference": "homepage",
         "file": "homepage.handlebars",
         "path": "/",
-        "collections": []
+        "collections": [
+          {
+            "slug": "posts",
+            "source": "lens",
+            "key": "posts",
+            "value": "post",
+            "query": { "method" : "queryByFeed", "args": { "feedAddress": "0x5a5Cc3f032A5c4dE76aE07b8ED188376f109f638"}}
+          }
+        ]
         },
         {
         "reference": "post",
         "file": "post.handlebars",
-        "path": "/nieuwsbrieven/{slug}/",
-        "collections": []
+        "path": "/posts/{slug}/",
+        "collections": [],
+        "filters": []
         }
     ],
     "ripples": [
-
+      {
+        "origins": ["post"],
+        "destination": "homepage",
+        "reference": "homepage",
+        "query": { "method" : "queryById", "args": { "postId": "54448954727229358281909069259067375869922783170982400905953080041361301566647"}},
+        "filters": []
+      }
     ]
 }
