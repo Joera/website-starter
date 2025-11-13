@@ -18,15 +18,17 @@
         "reference": "post",
         "file": "post.handlebars",
         "path": "/posts/{slug}/",
-        "collections": []
+        "collections": [],
+        "filters": []
         }
     ],
     "ripples": [
       {
-      "origins": ["post"],
-      "destination": "homepage",
-      "reference": "homepage",
-      "query": { "method" : "queryById", "args": ["54448954727229358281909069259067375869922783170982400905953080041361301566647"]}
+        "origins": ["post"],
+        "destination": "homepage",
+        "reference": "homepage",
+        "query": { "method" : "queryById", "args": { "postId": "54448954727229358281909069259067375869922783170982400905953080041361301566647"}},
+        "filters": []
       }
     ]
 }
