@@ -50,7 +50,7 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/', async (req: Request, res: Response) => {
 
     const STREAM_IDS = [
-        "34181876520727506972927557866018337454821455712420252335586679347441041426936",
+        "87119185787620437889240302547756526407722694952350143032371926081755117621597",
     ];
     const publication = "block001.soul2soul.eth";
     const authorSafeAddress = "0x04660132323Fe65C5BaF9107Cfe8a941386b4EAF";
@@ -62,26 +62,31 @@ app.post('/', async (req: Request, res: Response) => {
         const action: any = await ctrlr.runAction(authorSafeAddress, publication, STREAM_IDS, configCid);
         res.json({ logs: action.logs, response: action.response });
 
+        try { 
+
+          const response = JSON.parse(action.response)
+          if (response.cborRootCid) {
+            console.log("updatin local version ... ")
+            const folder = "../html";
+            clearFolder(folder);
+            await downloadHTML(response.cborRootCid, folder);
+          }
+        } catch( error) {
+          console.log(error)
+        }
+
     } catch(error: any) {
+
+      console.log(error)
 
         const logs = extractLogs(error.message || error.toString());
 
-        res.json(logs)
+      
 
     }
 
-    // console.log(action.logs)
-    // console.log(action.response)
 
-    //  const response = JSON.parse(action.response);
-
-    // console.log("res", response)
-
-    // if (response.cborRootCid) {
-    //   const folder = "../html";
-    //   clearFolder(folder);
-    //   await downloadHTML(response.cborRootCid, folder);
-    // }
+    
     
     
 });

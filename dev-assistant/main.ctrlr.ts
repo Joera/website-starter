@@ -121,6 +121,8 @@ export class MainController {
 
     async runAction(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
 
+        this.protocolInfo = await getProtocolInfo();
+
         return await this.litNodeClient.executeJs({
             sessionSigs: this.sessionSignatures,
             ipfsId: this.protocolInfo.lit_action_main,
