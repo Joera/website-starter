@@ -10,7 +10,8 @@
             "source": "lens",
             "key": "posts",
             "value": "post",
-            "query": { "method" : "queryByFeed", "args": { "feedAddress": "0x5a5Cc3f032A5c4dE76aE07b8ED188376f109f638"}}
+            "query": { "method" : "queryByFeed", "args": { "feedAddress": "0x5a5Cc3f032A5c4dE76aE07b8ED188376f109f638"}},
+            "filters": [{"post_type": "post"}]
           }
         ]
         },
@@ -27,7 +28,7 @@
         "origins": ["post"],
         "destination": "homepage",
         "reference": "homepage",
-        "query": { "method" : "queryById", "args": { "postId": "54448954727229358281909069259067375869922783170982400905953080041361301566647"}},
+        "query": { "method" : "queryById", "args": { "postId": "90702956949807758490707192938082902644913592275082356361549260928213339228489"}},
         "filters": []
       }
     ]
