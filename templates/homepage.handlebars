@@ -5,15 +5,17 @@
     {{> header}}
     <main>
 
-        <div class="container">
+        <section class="container small_container">
 
             <h2>Posts:</h2>
 
             {{#each posts as |post|}}
                 <article>
+                    {{json this}}
 
                     <h3>{{post.title}}</h3>
                 </article>
+            {{/each}}
 
         </div>
       
