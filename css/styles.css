@@ -236,9 +236,11 @@ header .large_container {
 
 header #logo {
 
-  width: 360px; 
-  margin-bottom: -210px;
+  width: 360px;
+  margin-bottom: -165px;
   margin-top: -60px;
+  height: auto;
+
 }
 
 header h1 {
