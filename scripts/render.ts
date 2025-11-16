@@ -125,6 +125,8 @@ const main = async () => {
       },
     });
 
+    console.log(action)
+
     console.log(action.logs);
 
     const response = JSON.parse(action.response);
@@ -151,4 +153,3 @@ main()
   .finally(() => {
     process.exit(0);
   });
-34181876520727506972927557866018337454821455712420252335586679347441041426936
