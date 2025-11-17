@@ -1,8 +1,8 @@
 {
   "templateConfig": [
         {
-        "reference": "homepage",
-        "file": "homepage.handlebars",
+        "reference": "home",
+        "file": "home.handlebars",
         "path": "/",
         "collections": [
           {
@@ -21,14 +21,21 @@
         "path": "/posts/{slug}/",
         "collections": [],
         "filters": []
+        },
+        {
+        "reference": "page",
+        "file": "page.handlebars",
+        "path": "/{slug}/",
+        "collections": [],
+        "filters": []
         }
     ],
     "ripples": [
       {
         "origins": ["post"],
-        "destination": "homepage",
-        "reference": "homepage",
-        "query": { "method" : "queryById", "args": { "postId": "90702956949807758490707192938082902644913592275082356361549260928213339228489"}},
+        "destination": "home",
+        "reference": "home",
+        "query": { "method" : "queryById", "args": { "postId": "64617781492805189701009480879149674604176067592032061274064038052630522871262"}},
         "filters": []
       }
     ]

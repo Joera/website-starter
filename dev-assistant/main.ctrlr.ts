@@ -46,11 +46,11 @@ export class MainController {
         const provider5 = new providers.JsonRpcProvider(LIT_RPC.CHRONICLE_YELLOWSTONE);
         this.ethersWallet = new Wallet5(epk, provider5);
 
-        await this.createSession();
+        await this.createSessions();
         console.log("ready")
     }
 
-    async createSession() {
+    async createSessions() {
        
         const litContracts = new LitContracts({
             signer: this.ethersWallet,
@@ -60,7 +60,7 @@ export class MainController {
 
         const capacityTokenId = (
         await litContracts.mintCapacityCreditsNFT({
-            requestsPerKilosecond: 10,
+            requestsPerKilosecond: 1000,
             daysUntilUTCMidnightExpiration: 1,
         })
         ).capacityTokenIdStr;
@@ -72,7 +72,7 @@ export class MainController {
             dAppOwnerWallet: this.ethersWallet,
             capacityTokenId,
             delegateeAddresses: [this.ethersWallet.address],
-            uses: "1",
+            uses: "9999",
             });
 
         this.sessionSignatures = await this.litNodeClient.getSessionSigs({
@@ -126,8 +126,6 @@ export class MainController {
 
         this.protocolInfo = await getProtocolInfo();
 
-        console.log(this.protocolInfo)
-
         let prep: any = await this.litNodeClient.executeJs({
             sessionSigs: this.sessionSignatures,
             ipfsId: this.protocolInfo.lit_action_prep,
@@ -139,6 +137,8 @@ export class MainController {
                 dev 
             },
         });
+
+        console.log("prepped");
 
         let jobs = JSON.parse(prep.response).jobs;        
 
@@ -181,16 +181,16 @@ export class MainController {
 
     async executeJobWithTimeout (jsParams: any, index: number, timeoutMs = 30000) {
 
-        await new Promise(resolve => setTimeout(resolve, index * 200));
+        await new Promise(resolve => setTimeout(resolve, index * 2000));
 
         let capturedLogs: string[] = [];
             
         try {
             const result = await Promise.race([
                 this.litNodeClient.executeJs({
-                sessionSigs: this.sessionSignatures,
-                ipfsId: this.protocolInfo.lit_action_single,
-                jsParams,
+                    sessionSigs: this.sessionSignatures,
+                    ipfsId: this.protocolInfo.lit_action_single,
+                    jsParams,
                 }),
                 
                 new Promise((_, reject) => 

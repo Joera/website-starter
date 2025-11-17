@@ -50,7 +50,9 @@ app.get('/', (req: Request, res: Response) => {
 app.post('/', async (req: Request, res: Response) => {
 
     const STREAM_IDS = [
-        "87119185787620437889240302547756526407722694952350143032371926081755117621597",
+        // "87119185787620437889240302547756526407722694952350143032371926081755117621597", // post
+        "64617781492805189701009480879149674604176067592032061274064038052630522871262",   // home
+       // "40255038220314795022404003530460736335084480480965257555859155696237091809234" // page
     ];
     const publication = "block001.soul2soul.eth";
     const authorSafeAddress = "0x04660132323Fe65C5BaF9107Cfe8a941386b4EAF";
@@ -64,7 +66,7 @@ app.post('/', async (req: Request, res: Response) => {
         const response = JSON.parse(actions.response);
 
         try { 
-          
+
           if (response.cbor) {
             console.log("updatin local version ... ")
             const folder = "../html";

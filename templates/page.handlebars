@@ -2,16 +2,15 @@
 <html lang="{{language}}">
 {{> head }}
 
-<body id="blog">
+<body id="page">
     {{> header}}
     <main>
         {{> background }}
 
-        <section id="blog_container" class="container small_container">
+        <section id="page_container" class="container small_container">
           
-            <article class="blog">   
+            <article class="page">   
                 <h2>{{title}}</h2> 
-                <span class='date'>{{formatDate creationDate}}</span>
                
                 {{{extract_images content}}}          
             </article>

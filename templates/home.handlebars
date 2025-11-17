@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+{{> head }}
+<body>
+    {{> header}}
+    <main>
+
+        <section class="container small_container">
+
+
+            {{#each posts}}
+
+
+                <article>
+                 {{this.title}}
+                </article>
+            {{/each}}
+
+        </section>
+      
+    </main>
+</body>
+</html>
