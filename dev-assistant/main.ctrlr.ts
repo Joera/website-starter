@@ -121,18 +121,55 @@ export class MainController {
 
     async runAction(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
 
+        const dev = true;
+        const debug = false;
+
         this.protocolInfo = await getProtocolInfo();
 
-        return await this.litNodeClient.executeJs({
+        console.log(this.protocolInfo)
+
+        let prep: any = await this.litNodeClient.executeJs({
             sessionSigs: this.sessionSignatures,
-            ipfsId: this.protocolInfo.lit_action_main,
+            ipfsId: this.protocolInfo.lit_action_prep,
             jsParams: {
                 authorSafeAddress,
                 publication,
-                stream_ids: STREAM_IDS,
                 config_cid: configCid,
-                publish: true,
-                dev: true,
+                stream_ids: STREAM_IDS,
+                dev 
+            },
+        });
+
+        let jobs = JSON.parse(prep.response).jobs;        
+
+        const results = await Promise.all(
+            jobs.map((job: any, index: number) =>  {
+                const jsParams = { authorSafeAddress, config_cid: configCid, publication, job, debug, dev }
+                return this.executeJobWithTimeout(jsParams, index, 40000)
+            
+            })
+        );
+
+        // Filter successes
+        const successful = results.filter(r => r.success);
+        const failed = results.filter(r => !r.success);
+        console.log(`Completed: ${successful.length}/${jobs.length}`);
+        failed.forEach(f => console.error(`Job ${f.index} failed:`, f.error.message, f.error))
+
+        const renderedJobs = successful.map( r => 
+            JSON.parse(r.result.response).job
+        ).filter( j => j.path != undefined)
+
+        console.log(renderedJobs);
+
+        return await this.litNodeClient.executeJs({
+            sessionSigs: this.sessionSignatures,
+            ipfsId: this.protocolInfo.lit_action_cbor,
+            jsParams: {
+                authorSafeAddress,
+                publication,
+                jobs: renderedJobs,
+                dev 
             },
         });
     }
@@ -141,4 +178,46 @@ export class MainController {
 
         return await this.builder.buildConfig(publication,"");
     }
+
+    async executeJobWithTimeout (jsParams: any, index: number, timeoutMs = 30000) {
+
+        await new Promise(resolve => setTimeout(resolve, index * 200));
+
+        let capturedLogs: string[] = [];
+            
+        try {
+            const result = await Promise.race([
+                this.litNodeClient.executeJs({
+                sessionSigs: this.sessionSignatures,
+                ipfsId: this.protocolInfo.lit_action_single,
+                jsParams,
+                }),
+                
+                new Promise((_, reject) => 
+                setTimeout(() => reject(new Error(`Timeout after ${timeoutMs}ms`)), timeoutMs)
+                )
+            ]);
+
+            console.log(result)
+            
+            return { success: true, index, result };
+            
+            } catch (error) {
+
+
+            console.log(error)
+            // Try to extract any logs from the error object
+            const logs = (error as any)?.logs || 
+                        (error as any)?.response?.logs || 
+                        (error as any)?.details?.logs || 
+                        capturedLogs;
+            
+            return { 
+                success: false, 
+                index, 
+                error,
+                logs // Preserve whatever logs we got
+            };
+        }
+    };
 }

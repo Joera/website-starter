@@ -59,27 +59,29 @@ app.post('/', async (req: Request, res: Response) => {
 
     try {
 
-        const action: any = await ctrlr.runAction(authorSafeAddress, publication, STREAM_IDS, configCid);
-        res.json({ logs: action.logs, response: action.response });
+        const actions: any = await ctrlr.runAction(authorSafeAddress, publication, STREAM_IDS, configCid);
+        
+        const response = JSON.parse(actions.response);
 
         try { 
-
-          const response = JSON.parse(action.response)
-          if (response.cborRootCid) {
+          
+          if (response.cbor) {
             console.log("updatin local version ... ")
             const folder = "../html";
             clearFolder(folder);
-            await downloadHTML(response.cborRootCid, folder);
+            await downloadHTML(response.cbor, folder);
           }
         } catch( error) {
           console.log(error)
         }
 
+        res.json({ cid: response.cbor });
+
     } catch(error: any) {
 
       console.log(error)
 
-        const logs = extractLogs(error.message || error.toString());
+      const logs = extractLogs(error.message || error.toString());
 
       
 

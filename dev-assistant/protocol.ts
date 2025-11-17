@@ -20,10 +20,10 @@ export const getProtocolInfo = async (dev = false) => {
 
     const { multisig, configModule } = await getProtocolControllerAndModules();
 
-    const [ assets_gateway, data_gateway, ens_records, lens_app, lit_action_main, lit_action_root_update, pkp_tokenId, pkp_publicKey, pkp_ethAddress ] = await getRecords(configModule, ["assets_gateway","data_gateway","ens_records","lens_app","lit_action_main","lit_action_root_update","pkp_tokenId","pkp_publicKey","pkp_ethAddress"]);
+    const [ assets_gateway, data_gateway, ens_records, lens_app, lit_action_main, lit_action_prep, lit_action_single, lit_action_cbor, lit_action_root_update, pkp_tokenId, pkp_publicKey, pkp_ethAddress ] = await getRecords(configModule, ["assets_gateway","data_gateway","ens_records","lens_app","lit_action_main", "lit_action_prep", "lit_action_single", "lit_action_cbor", "lit_action_root_update","pkp_tokenId","pkp_publicKey","pkp_ethAddress"]);
 
     return {
-      addr: multisig,
+      addr: multisig || "",
       recordsModule: configModule,
       data_gateway: data_gateway,
       assets_gateway: assets_gateway,
@@ -35,6 +35,9 @@ export const getProtocolInfo = async (dev = false) => {
         tokenId: pkp_tokenId
       },
       lit_action_main: lit_action_main,
+      lit_action_prep: lit_action_prep,
+      lit_action_cbor: lit_action_cbor,
+      lit_action_single: lit_action_single,
       lit_action_root_update: lit_action_root_update
     };
 

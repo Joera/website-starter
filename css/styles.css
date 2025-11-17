@@ -237,8 +237,9 @@ header .large_container {
 header #logo {
 
   width: 360px; 
-  margin-bottom: -210px;
+  margin-bottom: -156px;
   margin-top: -60px;
+  height: auto;
 }
 
 header h1 {
