@@ -1,3 +1,4 @@
+import { catFile, getDag } from "../../../protocol/actions/src/libs/ipfs.factory";
 import { IPFS_URL } from "./constants";
 import {
   cleanTemplateString,
@@ -12,36 +13,9 @@ export const renderHTML = async (
 ) => {
   try {
 
-    // console.log("config", config);
-    // console.log("templateConfig", templateConfig)
-    // Validate inputs
-    if (!config?.template_cid || !templateConfig?.file) {
-      console.error("Missing required config:", {
-        template_cid: config?.template_cid,
-        file: templateConfig?.file,
-      });
-      return "";
-    }
+    console.log("renderer", templateData);
 
-    // Fetch template array
-    const response = await fetch(
-      `${IPFS_URL}/api/v0/dag/get?arg=${config.template_cid}`,
-      {
-        method: "POST",
-      },
-    );
-
-    if (!response.ok) {
-      console.error(
-        "Template fetch failed:",
-        response.status,
-        response.statusText,
-      );
-      return "";
-    }
-
-    const templateArray = await response.json();
-    // console.log("templateArray", templateArray);
+    let templateArray = await getDag(config.template_cid);
 
     const templateFile = templateArray.find((t: any) =>
       t.path.includes(templateConfig.file),
@@ -52,25 +26,9 @@ export const renderHTML = async (
       return "";
     }
 
-    // Fetch template content
-    const templateResponse = await fetch(
-      `${IPFS_URL}/api/v0/cat?arg=${templateFile.cid}`,
-      {
-        method: "POST",
-      },
-    );
+    const templateString = await catFile(templateFile.cid)
 
-    if (!templateResponse.ok) {
-      console.error(
-        "Template content fetch failed:",
-        templateResponse.status,
-        templateResponse.statusText,
-      );
-      return "";
-    }
-
-    // Clean and process template
-    const template = cleanTemplateString(await templateResponse.text())
+    const template = cleanTemplateString(templateString)
       .replace(/^"/, "") // Remove leading quote if present
       .replace(/"$/, "") // Remove trailing quote if present
       .replace(/(?<=>)"/g, "") // Remove quotes after >
@@ -81,15 +39,9 @@ export const renderHTML = async (
       return "";
     }
 
-
-
-    // Find and process partials
     const partialFiles = templateArray.filter((t: any) =>
       t.path.includes("partials/"),
     );
-
-
-    // console.log("partials",partialFiles)
 
     const result = await processPartials(template, partialFiles, templateData);
 
