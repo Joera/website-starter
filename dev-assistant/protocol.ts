@@ -141,7 +141,7 @@ export const getProtocolControllerAndModules = async () => {
         const controller = await registry.parentDomainController();
 
 
-        console.log("Publication Safe (multisig):", controller.target);
+        // console.log("Publication Safe (multisig):", controller.target);
 
         // 5. Get modules from the Safe
         const safe = new ethers.Contract(
@@ -157,7 +157,7 @@ export const getProtocolControllerAndModules = async () => {
             10
         );
         
-        console.log("Modules found:", modules);
+        // console.log("Modules found:", modules);
 
         // 6. Identify modules by checking for NAME constant
         let configModule = null;
@@ -172,7 +172,7 @@ export const getProtocolControllerAndModules = async () => {
                 );
                 
                 const name = await module.NAME();
-                console.log(`Module ${moduleAddress} NAME:`, name);
+                // console.log(`Module ${moduleAddress} NAME:`, name);
                 
                 if (name === "S2S Records Module") {
                     configModule = moduleAddress;
@@ -181,7 +181,7 @@ export const getProtocolControllerAndModules = async () => {
                 }
             } catch (error) {
                 // Module doesn't have NAME function, skip
-                console.log(`Module ${moduleAddress} has no NAME function`);
+                // console.log(`Module ${moduleAddress} has no NAME function`);
             }
         }
 

@@ -1959,7 +1959,6 @@
   // renderer/src/html.ctrlr.ts
   var renderHTML = async (config2, templateConfig2, templateData2) => {
     try {
-      console.log("renderer", templateData2);
       let templateArray = await getDag(config2.template_cid);
       const templateFile = templateArray.find(
         (t) => t.path.includes(templateConfig2.file)

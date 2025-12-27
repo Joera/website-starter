@@ -3,12 +3,15 @@
 .flex_row {
     display: flex;
     
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    flex-wrap: wrap;
 
     @media screen and (min-width: breakpoints.$breakpoint-medium) {
         flex-direction: row;
     }
 
 }
+
+

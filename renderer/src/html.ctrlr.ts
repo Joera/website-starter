@@ -13,7 +13,7 @@ export const renderHTML = async (
 ) => {
   try {
 
-    console.log("renderer", templateData);
+    // console.log("renderer", templateData);
 
     let templateArray = await getDag(config.template_cid);
 

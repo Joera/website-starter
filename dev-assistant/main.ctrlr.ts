@@ -23,9 +23,7 @@ export class MainController {
     ethersWallet: any;
     sessionSignatures: any;
 
-    constructor() {
-
-    }
+    constructor() {}
 
     async init() {
 
@@ -60,7 +58,7 @@ export class MainController {
 
         const capacityTokenId = (
         await litContracts.mintCapacityCreditsNFT({
-            requestsPerKilosecond: 1000,
+            requestsPerKilosecond: 9999,
             daysUntilUTCMidnightExpiration: 1,
         })
         ).capacityTokenIdStr;
@@ -72,7 +70,7 @@ export class MainController {
             dAppOwnerWallet: this.ethersWallet,
             capacityTokenId,
             delegateeAddresses: [this.ethersWallet.address],
-            uses: "9999",
+            uses: "99",
             });
 
         this.sessionSignatures = await this.litNodeClient.getSessionSigs({
@@ -119,6 +117,24 @@ export class MainController {
         return this.sessionSignatures;
     }
 
+    async runActionSimple(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
+
+        const job = {};
+        const dev = true;
+        const debug = false;
+        const index = 10;
+
+        this.protocolInfo = await getProtocolInfo();
+
+        const jsParams = { authorSafeAddress, config_cid: configCid, publication, job, index }
+
+        return await this.litNodeClient.executeJs({
+            sessionSigs: this.sessionSignatures,
+            ipfsId: this.protocolInfo.lit_action_single,
+            jsParams,
+        })
+    }
+
     async runAction(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
 
         const dev = true;
@@ -138,28 +154,31 @@ export class MainController {
             },
         });
 
-        console.log("prepped");
+        console.log("prepped", prep)
 
-        let jobs = JSON.parse(prep.response).jobs;        
+       
+        let jobs = JSON.parse(prep.response).jobs;    
+      
 
         const results = await Promise.all(
             jobs.map((job: any, index: number) =>  {
                 const jsParams = { authorSafeAddress, config_cid: configCid, publication, job, debug, dev }
                 return this.executeJobWithTimeout(jsParams, index, 40000)
-            
             })
         );
 
-        // Filter successes
         const successful = results.filter(r => r.success);
         const failed = results.filter(r => !r.success);
         console.log(`Completed: ${successful.length}/${jobs.length}`);
         failed.forEach(f => console.error(`Job ${f.index} failed:`, f.error.message, f.error))
 
+        console.log("S", successful)
+
         const renderedJobs = successful.map( r => 
             JSON.parse(r.result.response).job
         ).filter( j => j.path != undefined)
 
+        // html here has the collections
         console.log(renderedJobs);
 
         return await this.litNodeClient.executeJs({
@@ -181,7 +200,7 @@ export class MainController {
 
     async executeJobWithTimeout (jsParams: any, index: number, timeoutMs = 30000) {
 
-        await new Promise(resolve => setTimeout(resolve, index * 2000));
+        await new Promise(resolve => setTimeout(resolve, index * 1000));
 
         let capturedLogs: string[] = [];
             
@@ -198,7 +217,7 @@ export class MainController {
                 )
             ]);
 
-            console.log(result)
+            // console.log(result)
             
             return { success: true, index, result };
             

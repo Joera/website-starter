@@ -185,7 +185,7 @@ export class PinataService  {
             console.log("uploading with contentType:", contentType);
 
             // console.log("upload data length:", data.length);
-            const file = new File([data], fileName, { type: contentType });
+            const file = new File([new Uint8Array(data)], fileName, { type: contentType });
             // console.log("upload file size:", file.size);
             const upload = await this.pinata.upload.file(file);
             console.log("cid from upload:", upload.IpfsHash);

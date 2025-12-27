@@ -9,6 +9,7 @@ declare global {
 
 const main = async () => {
   try {
+    
     const result = await renderHTML(config, templateConfig, templateData);
     LitActions.setResponse({
       response: JSON.stringify({ success: true, html: result }),

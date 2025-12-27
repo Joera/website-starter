@@ -5,14 +5,17 @@
     {{> header}}
     <main>
 
-        <section class="container small_container">
-
-            {{json this}}
-
+        <section class="container medium_container flex_row ">
 
             {{#each collections.posts}}
-                <article>
-                 {{this.title}}
+                <article id="{{this.id}}" class="block">
+                {{> background }}
+                <div>
+                <a href="{{this.path}}">
+                    <span class="date">{{formatDate this.creationDate}}</span>
+                    <h3>{{this.title}}</h3>
+                </a>
+                </div>
                 </article>
             {{/each}}
 
