@@ -197,12 +197,13 @@ header h1 {
   font-size: 2.2rem;
 }
 
+svg.background {
+  position: absolute;
+}
+
 #blog_container {
   padding: 18rem 0;
   position: relative;
-}
-#blog_container .background {
-  position: absolute;
 }
 
 article.block {
