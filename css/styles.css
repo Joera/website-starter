@@ -183,10 +183,10 @@ header a {
   justify-content: center;
 }
 header svg {
-  max-width: 360px;
+  max-width: 240px;
   height: auto;
   margin-bottom: -90px;
-  margin-top: -90px;
+  margin-top: -30px;
 }
 header h1 {
   text-transform: none;
@@ -198,8 +198,11 @@ header h1 {
 }
 
 #blog_container {
-  padding: 28rem 0;
+  padding: 18rem 0;
   position: relative;
+}
+#blog_container .background {
+  position: absolute;
 }
 
 article.block {
@@ -226,7 +229,7 @@ article.block > div h3 {
 }
 article.block > div .date {
   color: white;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

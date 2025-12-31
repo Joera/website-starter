@@ -117,23 +117,23 @@ export class MainController {
         return this.sessionSignatures;
     }
 
-    async runActionSimple(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
+    // async runActionSimple(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
 
-        const job = {};
-        const dev = true;
-        const debug = false;
-        const index = 10;
+    //     const job = {};
+    //     const dev = true;
+    //     const debug = false;
+    //     const index = 10;
 
-        this.protocolInfo = await getProtocolInfo();
+    //     this.protocolInfo = await getProtocolInfo();
 
-        const jsParams = { authorSafeAddress, config_cid: configCid, publication, job, index }
+    //     const jsParams = { authorSafeAddress, config_cid: configCid, publication, job, index }
 
-        return await this.litNodeClient.executeJs({
-            sessionSigs: this.sessionSignatures,
-            ipfsId: this.protocolInfo.lit_action_single,
-            jsParams,
-        })
-    }
+    //     return await this.litNodeClient.executeJs({
+    //         sessionSigs: this.sessionSignatures,
+    //         ipfsId: this.protocolInfo.lit_action_single,
+    //         jsParams,
+    //     })
+    // }
 
     async runAction(authorSafeAddress: string, publication: string, STREAM_IDS: string[], configCid: string) {
 
@@ -141,6 +141,8 @@ export class MainController {
         const debug = false;
 
         this.protocolInfo = await getProtocolInfo();
+
+        console.log(this.protocolInfo);
 
         let prep: any = await this.litNodeClient.executeJs({
             sessionSigs: this.sessionSignatures,
