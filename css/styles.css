@@ -57,6 +57,12 @@ em {
   font-size: 1rem;
 }
 
+.author {
+  font-size: 1rem;
+  color: white;
+  margin-top: 0.5rem;
+}
+
 html {
   position: relative;
   width: 100vw;
