@@ -8,7 +8,7 @@
         <section class="container medium_container flex_row ">
 
             {{#each collections.posts}}
-                <article id="{{this.id}}" class="block">
+                <article id="{{this.id}}" class="block" author="{{author}}">
                 {{> background }}
                 <div>
                 <a href="{{this.path}}">

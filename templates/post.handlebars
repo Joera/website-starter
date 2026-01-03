@@ -9,10 +9,11 @@
 
         <section id="blog_container" class="container small_container">
           
-            <article class="blog">   
+            <article class="blog">  
+                <div class="author">{{author}}</div> 
                 <h2>{{title}}</h2> 
                 <span class='date'>{{formatDate creationDate}}</span>
-                <div class="author">{{author}}</div>
+                
                
                 {{{extract_images content}}}          
             </article>
