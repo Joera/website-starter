@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "ts-node scripts/build.cjs",
-    "sass": "sass scss/styles.scss css/styles.css && cd node-css-inject && npm run dev && cd ..",
+    "sass": "sass scss/styles.scss css/styles.css",
     "deploy": "scp css/styles.css joera:/srv/neutral_hosting/public/joeramulders/css/styles.css",
     "serve": "http-server html -p 3008 --cors -c-1",
     "render": "curl -X POST 'http://127.0.0.1:7654/'",
