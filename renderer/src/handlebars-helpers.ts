@@ -30,7 +30,7 @@ function logObjectWithPosts(label: string, data: any) {
 export const helpers = [
   {
     name: "unique_years",
-    helper: function (posts) {
+    helper: function (posts: any[]) {
       if (!posts || !Array.isArray(posts)) {
         return [];
       }
@@ -82,7 +82,7 @@ export const helpers = [
   },
   {
     name: "filter_by_year",
-    helper: function (year, posts) {
+    helper: function (year: string, posts: any[]) {
       if (!posts || !Array.isArray(posts) || !year) {
         return [];
       }
@@ -150,6 +150,23 @@ export const helpers = [
       }
     },
   },
+  {
+      name: "authorFromAddress",
+      helper: (author: string) => {
+        if (!author) return '';
+        try {
+          if (typeof author !== 'string') {
+            author = String(author);
+          }
+          author = '...' + author.slice(-6);
+       
+          return author;
+        } catch (error) {
+          console.error('Error in authorFromAddress helper:', error);
+          return '';
+        }
+      }
+    },
   {
     name: "extract_images",
     helper: (input: string) => {

@@ -7,7 +7,7 @@
   // ../protocol/actions/src/libs/constants.ts
   var IPFS_URL = "https://ipfs.transport-union.dev";
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/bytes.js
+  // ../protocol/node_modules/multiformats/dist/src/bytes.js
   var empty = new Uint8Array(0);
   function equals(aa, bb) {
     if (aa === bb) {
@@ -36,7 +36,7 @@
     throw new Error("Unknown type, must be binary type");
   }
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/vendor/base-x.js
+  // ../protocol/node_modules/multiformats/dist/src/vendor/base-x.js
   function base(ALPHABET, name) {
     if (ALPHABET.length >= 255) {
       throw new TypeError("Alphabet too long");
@@ -172,7 +172,7 @@
   var _brrp__multiformats_scope_baseX = src;
   var base_x_default = _brrp__multiformats_scope_baseX;
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/bases/base.js
+  // ../protocol/node_modules/multiformats/dist/src/bases/base.js
   var Encoder = class {
     constructor(name, prefix, baseEncode) {
       __publicField(this, "name");
@@ -348,7 +348,7 @@
     });
   }
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/bases/base32.js
+  // ../protocol/node_modules/multiformats/dist/src/bases/base32.js
   var base32 = rfc4648({
     prefix: "b",
     name: "base32",
@@ -404,7 +404,7 @@
     bitsPerChar: 5
   });
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/bases/base36.js
+  // ../protocol/node_modules/multiformats/dist/src/bases/base36.js
   var base36 = baseX({
     prefix: "k",
     name: "base36",
@@ -416,7 +416,7 @@
     alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   });
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/bases/base58.js
+  // ../protocol/node_modules/multiformats/dist/src/bases/base58.js
   var base58btc = baseX({
     name: "base58btc",
     prefix: "z",
@@ -428,7 +428,7 @@
     alphabet: "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
   });
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/vendor/varint.js
+  // ../protocol/node_modules/multiformats/dist/src/vendor/varint.js
   var encode_1 = encode2;
   var MSB = 128;
   var REST = 127;
@@ -487,7 +487,7 @@
   var _brrp_varint = varint;
   var varint_default = _brrp_varint;
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/varint.js
+  // ../protocol/node_modules/multiformats/dist/src/varint.js
   function decode3(data, offset = 0) {
     const code = varint_default.decode(data, offset);
     return [code, varint_default.decode.bytes];
@@ -500,7 +500,7 @@
     return varint_default.encodingLength(int);
   }
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/hashes/digest.js
+  // ../protocol/node_modules/multiformats/dist/src/hashes/digest.js
   function create(code, digest) {
     const size = digest.byteLength;
     const sizeOffset = encodingLength(code);
@@ -545,7 +545,7 @@
     }
   };
 
-  // ../protocol/node_modules/.pnpm/multiformats@13.4.1/node_modules/multiformats/dist/src/cid.js
+  // ../protocol/node_modules/multiformats/dist/src/cid.js
   function format(link, base2) {
     const { bytes, version } = link;
     switch (version) {
@@ -1004,6 +1004,22 @@
         } catch (error) {
           console.error("Error in filter_by_year helper:", error);
           return [];
+        }
+      }
+    },
+    {
+      name: "authorFromAddress",
+      helper: (author) => {
+        if (!author) return "";
+        try {
+          if (typeof author !== "string") {
+            author = String(author);
+          }
+          author = "..." + author.slice(-6);
+          return author;
+        } catch (error) {
+          console.error("Error in authorFromAddress helper:", error);
+          return "";
         }
       }
     },
