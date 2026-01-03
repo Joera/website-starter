@@ -72,6 +72,23 @@ export const helpers = [
       }
     },
     {
+      name: "authorFromAddress",
+      helper: (author) => {
+        if (!author) return '';
+        try {
+          if (typeof author !== 'string') {
+            author = String(author);
+          }
+          // author = '...' + author.slice(-6);
+       
+          return author;
+        } catch (error) {
+          console.error('Error in authorFromAddress helper:', error);
+          return '';
+        }
+      }
+    },
+    {
       name: "ifEquals",
       helper: function (a, b, options) {
         if (!options || typeof options.fn !== 'function') return '';
