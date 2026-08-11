@@ -41,6 +41,10 @@ and writes `html/*.html` for the `:3008` serve preview.
   `~/code/s2s-s3ntiment`.
 - Render is over the network (`S2S_RUNNER_URL`, default `https://run.transport-union.dev/run`,
   env-overridable). If it's unreachable, the run fails and tells you.
+- **Mode 3 (contract pull)**: `pnpm render:dev --source=contract` pulls unencrypted deals
+  from the on-chain `S2S Publication Module V2` on Base via `scripts/contract-pull.ts`
+  (needs `BASE_RPC_URL`, `PUBLICATION_MODULE_ADDRESS`, `IPFS_GATEWAY`) and renders them
+  through the same render-dev action — useful for previewing a live publication's content.
 
 ## Authoring content directives (md → html)
 
@@ -113,8 +117,8 @@ publication's helper module, not hardcoded in the renderer.
 
 - `templates/` — page templates (`home`, `page`, `post`).
 - `templates/partials/` — reusable template fragments (`background`, `head`, `header`, `logo`, …).
-- `scripts/local-config-builder.ts` — builds the local publication config.
-- `scripts/render-dev.ts` — the `render:dev` loop.
+- `scripts/render-dev.ts` — the `render:dev` loop (mode 1 fixtures, or `--source=contract` for mode 3).
+- `scripts/contract-pull.ts` — pulls unencrypted deals from the on-chain publication module (mode 3).
 - `fixtures/bodies/*` — local plaintext content fixtures (`home.json`, `page.json`, `post.json`).
 - `fixtures/all-deals.json` — the collection data source.
 - `fixtures/helpers.source` — the injected publication helpers module (bare expression, no `;`).

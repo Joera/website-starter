@@ -26,6 +26,7 @@
 import 'dotenv/config';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
+import { pullUnencrypted } from './contract-pull';
 
 // Resolve the package root from this script's own location so the kit works
 // regardless of the cwd it is invoked from. This package is CommonJS (no
@@ -174,7 +175,7 @@ async function runAction(inputs: DevRenderInput): Promise<ActionResult> {
 }
 
 // ---------------------------------------------------------------------------
-// Fixture-driven render specs
+// Fixture-driven render specs (mode 1, default)
 // ---------------------------------------------------------------------------
 function loadSpecs(): RenderSpec[] {
   const body = (name: string): DevBody =>
@@ -224,15 +225,78 @@ function loadSpecs(): RenderSpec[] {
 }
 
 // ---------------------------------------------------------------------------
+// Contract-driven render specs (mode 3, --source=contract)
+// ---------------------------------------------------------------------------
+/**
+ * Pulls unencrypted deals from the on-chain publication module (via
+ * contract-pull.ts) and builds a render-dev spec per body, reusing the SAME
+ * fixtures/bodies helpers and the home template with the pulled allDeals[]
+ * driving the collection filter.
+ */
+async function loadContractSpecs(limit?: number): Promise<RenderSpec[]> {
+  const { bodies, allDeals } = await pullUnencrypted(limit);
+
+  if (bodies.length === 0) {
+    throw new Error('contract-pull returned 0 unencrypted bodies — nothing to render');
+  }
+  const deals = allDeals as unknown[];
+
+  // Home template iterates collections.posts, driven by the pulled allDeals[]
+  // through the shared filter (postType === 'post').
+  const homeBody = readJson<DevBody>(path.join(PKG_ROOT, 'fixtures', 'bodies', 'home.json'));
+
+  const specs: RenderSpec[] = [
+    {
+      name: 'home',
+      templateFile: 'home',
+      body: homeBody,
+      templateConfig: {
+        reference: 'home',
+        file: 'home',
+        path: '/',
+        collections: [{ slug: 'posts', filters: [{ postType: 'post' }] }],
+      },
+      allDeals: deals,
+    },
+  ];
+
+  // One spec per pulled body. Post-type bodies use the post template;
+  // everything else uses the page template.
+  for (let i = 0; i < bodies.length; i += 1) {
+    const b = bodies[i] as unknown as DevBody;
+    const slug = (b.slug as string) || (b.id as string) || `deal-${i}`;
+    const isPost = b.postType === 'post';
+    specs.push({
+      name: slug,
+      templateFile: isPost ? 'post' : 'page',
+      body: b,
+      templateConfig: isPost
+        ? { reference: 'post', file: 'post', path: `/posts/{slug}` }
+        : { reference: 'page', file: 'page', path: `/{slug}` },
+    });
+  }
+
+  return specs;
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 async function main(): Promise<void> {
-  const specs = loadSpecs();
+  const argv = process.argv.slice(2);
+  const sourceContract = argv.includes('--source=contract');
+  const limitArg = argv.find((a) => a.startsWith('--limit='));
+  const limit = limitArg ? Number(limitArg.split('=')[1]) : undefined;
+
+  const specs = sourceContract
+    ? await loadContractSpecs(limit)
+    : loadSpecs();
   const htmlDir = path.join(PKG_ROOT, 'html');
   mkdirSync(htmlDir, { recursive: true });
 
   console.log(`render-dev: runner=${RUNNER_URL}`);
   console.log(`render-dev: cid=${DEV_ACTION_CID}`);
+  console.log(`render-dev: source=${sourceContract ? 'contract (mode 3)' : 'fixtures (mode 1)'}`);
   console.log(`render-dev: ${specs.length} render(s) — ${specs.map((s) => s.name).join(', ')}\n`);
 
   let failures = 0;
