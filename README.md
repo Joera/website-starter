@@ -1,12 +1,13 @@
 # website
 
 Soul2Soul website starter. Templates + partials live in `templates/`; SCSS in
-`scss/`; the local config builder is in `scripts/local-config-builder.ts`.
+`scss/`; the local render kit lives in `scripts/render-dev.ts` (plus
+`scripts/contract-pull.ts` for pulling on-chain deals in mode 3).
 
 ```bash
 pnpm sass          # scss/styles.scss -> css/styles.css
 pnpm serve         # http-server html -p 3008 --cors -c-1  (preview)
-pnpm upload        # build + upload the site
+pnpm render:dev    # render fixtures -> html/<page>.html (mode 1)
 ```
 
 ## render:dev — standalone local render kit (RFC B, Option C)
@@ -99,3 +100,29 @@ pnpm serve         # preview at http://localhost:3008
 Helpers are injected as source, so editing `fixtures/helpers.source` and re-rendering
 takes effect instantly — no `helpersCid` publish loop. `config`/`protocolInfo`
 inputs are optional and omitted by the kit.
+
+### Mode 3 — render from the on-chain publication module (contract pull)
+
+`pnpm render:dev --source=contract` sources real deals from the `S2S Publication
+Module V2` on Base L2 instead of the local fixtures. It is **completely
+standalone** (no `@s2s/*` imports): `scripts/contract-pull.ts` connects via
+`ethers5`, paginates `getDeals(offset, limit)` (pageSize 100), fetches the
+`S2SContentItem` JSON for each deal's `cid` from the IPFS gateway, maps it into
+the render-dev `body` shape (mode 1's `toBody` mapping), drops encrypted deals
+(`encryption === true` — mode 3 is unencrypted-only), and renders the resulting
+bodies through the same render-dev action used for fixtures.
+
+Required env vars (`example..env`):
+
+| env var                    | default                    | purpose                              |
+| -------------------------- | -------------------------- | ------------------------------------ |
+| `BASE_RPC_URL`             | `https://mainnet.base.org` | Base L2 RPC (chainId 8453)           |
+| `PUBLICATION_MODULE_ADDRESS` | *(required)*             | on-chain module to pull deals from   |
+| `IPFS_GATEWAY`             | `https://gateway.pinata.cloud` | `<gateway>/ipfs/<cid>` fetch     |
+
+```bash
+pnpm render:dev --source=contract          # all unencrypted deals
+pnpm render:dev --source=contract --limit 10   # first 10
+```
+
+Output lands in `html/<page>.html` just like mode 1, so `pnpm serve` shows it.
