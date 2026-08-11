@@ -14,7 +14,6 @@
     "tsx": "^4.21.0"
   },
   "dependencies": {
-    "@s2s/soul2soul-shared": "workspace:*",
     "@lit-protocol/auth-helpers": "^7.1.1",
     "@lit-protocol/constants": "^7.1.1",
     "@lit-protocol/contracts-sdk": "^7.1.1",
