@@ -189,9 +189,9 @@ header a {
   justify-content: center;
 }
 header svg {
-  max-width: 240px;
+  max-width: 160px;
   height: auto;
-  margin-bottom: -90px;
+  margin-bottom: -60px;
   margin-top: -30px;
 }
 header h1 {
@@ -210,6 +210,10 @@ svg.background {
 #blog_container {
   padding: 24rem 0 28rem 0;
   position: relative;
+}
+
+body#blog header {
+  margin-bottom: -6rem;
 }
 
 article.block {
