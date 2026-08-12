@@ -33,7 +33,7 @@ The kit gathers everything locally and POSTs it as `inputs`:
 - `partialsSource` — every `templates/partials/*.handlebars`, keyed by filename
   (`head`, `header`, `background`, `logo`, `origami-swans`)
 - `body` — a plaintext fixture (`encryption: false` is required)
-- `helpersSource` — `fixtures/helpers.source`, read verbatim and injected
+- `helpersSource` — `helpers.source` (repo root, level with `mapping.json`), read verbatim and injected
 - `collections` / `allDeals` — pre-built collections, or a raw deal array that
   runs the shared pure filter via `templateConfig.collections`
 
@@ -70,7 +70,7 @@ not exist in a standalone checkout.
 
 ### Iterating: add a helper and a fixture body
 
-**Add a helper** — edit `fixtures/helpers.source`. It's a JS expression that
+**Add a helper** — edit `helpers.source` (repo root, level with `mapping.json`). It's a JS expression that
 evaluates to a `{ name: (args) => ..., ... }` map of pure functions, read
 verbatim and injected as `helpersSource`. For example, to add an `upper`
 helper:
@@ -97,7 +97,7 @@ pnpm render:dev    # -> html/<page>.html
 pnpm serve         # preview at http://localhost:3008
 ```
 
-Helpers are injected as source, so editing `fixtures/helpers.source` and re-rendering
+Helpers are injected as source, so editing `helpers.source` and re-rendering
 takes effect instantly — no `helpersCid` publish loop. `config`/`protocolInfo`
 inputs are optional and omitted by the kit.
 

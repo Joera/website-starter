@@ -20,7 +20,7 @@
  * `dotenv`. The render logic itself lives in the deployed render-dev action
  * (shared with production), so preview ≈ production by construction.
  *
- * Iteration loop: edit a template, a fixture body, or fixtures/helpers.source,
+ * Iteration loop: edit a template, a fixture body, or helpers.source,
  * then re-run `pnpm render:dev` and refresh http://localhost:3008.
  */
 import 'dotenv/config';
@@ -129,13 +129,69 @@ function gatherPartials(): Record<string, string> {
   return out;
 }
 
-/** Read the publication helper source verbatim (a JS expression string). */
+/**
+ * Read the publication helper source verbatim (a JS expression string).
+ *
+ * CANONICAL LOCATION: repo root, level with mapping.json — the helper source
+ * is a config-level publication artifact, not a dev fixture. It lives at
+ * `helpers.source` (kept extension-less so editors/prettier don't add a `;`
+ * and break the `return (SOURCE);` eval contract in the render action).
+ */
 function readHelpersSource(): string {
-  return readFileSync(path.join(PKG_ROOT, 'fixtures', 'helpers.source'), 'utf8');
+  return readFileSync(path.join(PKG_ROOT, 'helpers.source'), 'utf8');
+}
+
+/**
+ * Fail-fast (approach A): pre-flight the publication helper source BEFORE any
+ * network call. The render-dev action evaluates it as `return (SOURCE);` — a
+ * bare JS expression that must yield a `{ name: (args) => ..., … }` map of
+ * PURE functions. A malformed file (syntax error, stray trailing semicolon or
+ * top-level statement that breaks the expression-wrap, a non-object result, or
+ * a non-function value) would otherwise surface only as a cryptic remote
+ * failure on the first render. Validate locally and throw instead, so the run
+ * aborts before a single runner request is issued.
+ */
+function validateHelpersSource(source: string): void {
+  const trimmed = source.trim();
+
+  if (trimmed.length === 0) {
+    throw new Error(
+      'helpers.source is empty — expected a bare JS expression yielding a { name: fn } helper map',
+    );
+  }
+
+  let helpers: unknown;
+  try {
+    // Mirrors the exact expression-wrap contract the render action uses.
+    // eslint-disable-next-line no-new-func
+    helpers = new Function(`return (${trimmed});`)();
+  } catch (err) {
+    throw new Error(
+      `helpers.source is not a valid bare JS expression (the action wraps it as \`return (SOURCE);\` — check for a trailing ';' or stray top-level statement): ${(err as Error).message}`,
+    );
+  }
+
+  if (typeof helpers !== 'object' || helpers === null || Array.isArray(helpers)) {
+    throw new Error(
+      'helpers.source must evaluate to a plain object map of { name: fn } helpers (got ' +
+        `${helpers === null ? 'null' : Array.isArray(helpers) ? 'an array' : typeof helpers})`,
+    );
+  }
+
+  const entries = Object.entries(helpers as Record<string, unknown>);
+  if (entries.length === 0) {
+    throw new Error('helpers.source evaluates to an empty object — no helpers were declared');
+  }
+  const nonFn = entries.filter(([, v]) => typeof v !== 'function').map(([k]) => k);
+  if (nonFn.length > 0) {
+    throw new Error(
+      `helpers.source entry(ies) must be functions: ${nonFn.join(', ')} (got non-function values)`,
+    );
+  }
 }
 
 /** Build the exact `inputs` object the render-dev action expects. */
-function buildInputs(spec: RenderSpec): DevRenderInput {
+function buildInputs(spec: RenderSpec, helpersSource: string): DevRenderInput {
   const templateSource = spec.inlineTemplate
     ? spec.inlineTemplate
     : readFileSync(path.join(PKG_ROOT, 'templates', `${spec.templateFile}.handlebars`), 'utf8');
@@ -145,7 +201,7 @@ function buildInputs(spec: RenderSpec): DevRenderInput {
     templateSource,
     partialsSource: gatherPartials(),
     body: spec.body,
-    helpersSource: readHelpersSource(),
+    helpersSource,
   };
   if (spec.collections) inputs.collections = spec.collections;
   if (spec.allDeals) inputs.allDeals = spec.allDeals;
@@ -291,19 +347,26 @@ async function main(): Promise<void> {
   const specs = sourceContract
     ? await loadContractSpecs(limit)
     : loadSpecs();
+
+  // Fail-fast (approach A): pre-flight the publication helper source before any
+  // render hits the runner. A malformed helper file aborts here — no network.
+  const helpersSource = readHelpersSource();
+  validateHelpersSource(helpersSource);
+
   const htmlDir = path.join(PKG_ROOT, 'html');
   mkdirSync(htmlDir, { recursive: true });
 
   console.log(`render-dev: runner=${RUNNER_URL}`);
   console.log(`render-dev: cid=${DEV_ACTION_CID}`);
   console.log(`render-dev: source=${sourceContract ? 'contract (mode 3)' : 'fixtures (mode 1)'}`);
+  console.log(`render-dev: helpers-source=helpers.source (${helpersSource.length} bytes, validated)`);
   console.log(`render-dev: ${specs.length} render(s) — ${specs.map((s) => s.name).join(', ')}\n`);
 
   let failures = 0;
   for (const spec of specs) {
     process.stdout.write(`  render-dev: ${spec.name} -> html/${spec.name}.html ... `);
     try {
-      const inputs = buildInputs(spec);
+      const inputs = buildInputs(spec, helpersSource);
       const result = await runAction(inputs);
 
       if (!result.ok) {
@@ -332,7 +395,7 @@ async function main(): Promise<void> {
   console.log('\nrender-dev: all renders OK.');
   console.log('  Preview:  pnpm serve  ->  http://localhost:3008');
   console.log(
-    '  Iterate:  edit templates/, fixtures/bodies/*.json or fixtures/helpers.source, then re-run `pnpm render:dev`.',
+    '  Iterate:  edit templates/, fixtures/bodies/*.json or helpers.source, then re-run `pnpm render:dev`.',
   );
 }
 

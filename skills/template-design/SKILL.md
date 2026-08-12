@@ -75,7 +75,8 @@ Called **by the template** with mustache syntax: `{{helpername arg1 arg2}}`.
 
 Built-ins exist for common needs (date, slice, slugify, trim, …). **Publication-supplied
 helpers** are a named-function module injected into the render — they **extend** (not replace)
-built-ins. In this kit you author them in `fixtures/helpers.source`:
+built-ins. Their source lives at **repo root, level with `mapping.json`**, as a config-level
+publication artifact — `helpers.source` (NOT a dev fixture under `fixtures/`):
 
 ```js
 ({
@@ -87,6 +88,10 @@ Rules for that file:
 - It must be a **bare JS expression** with **no trailing semicolon** — the action wraps it as
   `return (SOURCE);`. That's why it's `.source`, not `.js` (prettier/editors add a `;` and would
   break the eval).
+- `render:dev` **fail-fast validates** this contract locally before any network: it evals the
+  source as `return (SOURCE);`, asserts the result is a `{ name: fn }` map of all functions, and
+  aborts before hitting the runner if the file is malformed. A syntax error / stray `;` / empty
+  object / non-function value fails immediately and locally, not as a cryptic remote error.
 - Keep helpers **pure** (no I/O, no side effects) — they run inside the action.
 
 A helper like `filter_by_year` is the canonical "logic a publication owns" — it belongs in the
@@ -121,7 +126,7 @@ publication's helper module, not hardcoded in the renderer.
 - `scripts/contract-pull.ts` — pulls unencrypted deals from the on-chain publication module (mode 3).
 - `fixtures/bodies/*` — local plaintext content fixtures (`home.json`, `page.json`, `post.json`).
 - `fixtures/all-deals.json` — the collection data source.
-- `fixtures/helpers.source` — the injected publication helpers module (bare expression, no `;`).
+- `helpers.source` (repo root) — the injected publication helpers module (bare expression, no `;`).
 - `html/` — **generated output** (safe to wipe; it's the render target).
 
 ## Expand later
