@@ -1,7 +1,6 @@
 {{!-- The contents list: one menu item per chapter ("chapter" post_type).
       Shared by the header disclosure (small screens) and the fixed aside. --}}
 <div class="nav-group">
-    <span class="nav-group__label">{{or custom.nav_label "Documentation"}}</span>
     <ul role="list">
         {{#each collections.chapters}}
         <li><a class="nav-link" href="{{path}}"{{#if (eq slug ../slug)}} aria-current="page"{{/if}}>{{title}}</a></li>
