@@ -81,6 +81,8 @@ body.docs ul[role=list] {
 }
 
 body.docs .site-header {
+  font-family: var(--font-headline);
+  text-transform: uppercase;
   justify-content: flex-start;
   position: fixed;
   inset: 0 0 auto 0;
@@ -99,7 +101,7 @@ body.docs .site-header {
 body.docs .site-header__mark {
   display: block;
   margin: 0;
-  font-family: var(--font-headline);
+  font-family: var(--font-mono);
   font-weight: 800;
   line-height: 1.5rem;
 }
@@ -236,7 +238,7 @@ body.docs .page-hero__inner {
 
 body.docs .page-hero h1 {
   margin: 0;
-  font-family: var(--font-headline);
+  font-family: var(--font-mono);
   font-weight: 500;
   font-size: 2.25rem;
   line-height: 2.5rem;

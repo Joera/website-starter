@@ -104,6 +104,8 @@ body.docs {
 body.docs .site-header {
 
     // the starter theme styles the bare `header` element (scss/basics/header.scss)
+    font-family: var(--font-headline);
+    text-transform: uppercase;
     justify-content: flex-start;
 
     position: fixed;
@@ -123,7 +125,7 @@ body.docs .site-header {
 body.docs .site-header__mark {
     display: block;
     margin: 0;
-    font-family: var(--font-headline);
+    font-family: var(--font-mono);
     font-weight: 800;
     line-height: 1.5rem;
 }
@@ -284,7 +286,7 @@ body.docs .page-hero__inner {
 
 body.docs .page-hero h1 {
     margin: 0;
-    font-family: var(--font-headline);
+    font-family: var(--font-mono);
     font-weight: 500;
     font-size: 2.25rem;
     line-height: 2.5rem;
