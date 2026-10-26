@@ -24,7 +24,14 @@
  * then re-run `pnpm render:dev` and refresh http://localhost:3008.
  */
 import 'dotenv/config';
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from 'node:fs';
 import * as path from 'node:path';
 import { pullUnencrypted } from './contract-pull';
 
@@ -47,6 +54,7 @@ const DEV_ACTION_CID =
 interface DevCollectionSpec {
   slug: string;
   filters?: unknown[];
+  sortBy?: 'position' | 'creationDate' | 'modifiedDate' | 'title';
 }
 
 interface DevTemplateConfig {
@@ -241,6 +249,32 @@ function loadSpecs(): RenderSpec[] {
     path.join(PKG_ROOT, 'fixtures', 'demo.json'),
   );
 
+  // Documentation chapters: `fixtures/bodies/chapter-*.json` IS the `chapters`
+  // collection (one fixture per post_type: chapter body). Every chapter page
+  // declares the collection in its templateConfig, so the shared pure filter +
+  // sorter builds the menu (nav + pager) exactly as production does.
+  const chapters = readdirSync(path.join(PKG_ROOT, 'fixtures', 'bodies'))
+    .filter((f) => /^chapter-.*\.json$/.test(f))
+    .sort()
+    .map((f) => readJson<DevBody>(path.join(PKG_ROOT, 'fixtures', 'bodies', f)));
+
+  const chapterConfig: DevTemplateConfig = {
+    reference: 'chapter',
+    file: 'chapter',
+    path: '/documentation/{slug}/',
+    collections: [{ slug: 'chapters', filters: [{ postType: 'chapter' }], sortBy: 'position' }],
+  };
+
+  const chapterSpecs: RenderSpec[] = chapters.map((chapter) => ({
+    // Nested output: html/documentation/<slug>/index.html — so the absolute
+    // chapter paths (/documentation/<slug>/) resolve on the static preview.
+    name: `documentation/${chapter.slug}/index`,
+    templateFile: 'chapter',
+    body: chapter,
+    templateConfig: chapterConfig,
+    allDeals: chapters,
+  }));
+
   return [
     {
       // Home iterates collections.posts — exercise the SHARED pure collection
@@ -277,6 +311,7 @@ function loadSpecs(): RenderSpec[] {
       body: demo.body,
       templateConfig: { reference: 'post', file: 'post', path: '/demo' },
     },
+    ...chapterSpecs,
   ];
 }
 
@@ -356,6 +391,18 @@ async function main(): Promise<void> {
   const htmlDir = path.join(PKG_ROOT, 'html');
   mkdirSync(htmlDir, { recursive: true });
 
+  // The templates load their stylesheet with the publish-time
+  // `insert_stylesheet.css` token; there is no such file locally, so the docs
+  // head falls back to /css/styles.css. Put the compiled css where the preview
+  // server can serve it (`pnpm sass` first).
+  const compiledCss = path.join(PKG_ROOT, 'css', 'styles.css');
+  if (existsSync(compiledCss)) {
+    mkdirSync(path.join(htmlDir, 'css'), { recursive: true });
+    copyFileSync(compiledCss, path.join(htmlDir, 'css', 'styles.css'));
+  } else {
+    console.warn('  render-dev: css/styles.css missing — run `pnpm sass` for a styled preview');
+  }
+
   console.log(`render-dev: runner=${RUNNER_URL}`);
   console.log(`render-dev: cid=${DEV_ACTION_CID}`);
   console.log(`render-dev: source=${sourceContract ? 'contract (mode 3)' : 'fixtures (mode 1)'}`);
@@ -378,6 +425,7 @@ async function main(): Promise<void> {
       }
 
       const outPath = path.join(htmlDir, `${spec.name}.html`);
+      mkdirSync(path.dirname(outPath), { recursive: true });
       writeFileSync(outPath, result.html ?? '', 'utf8');
       console.log(`ok (${(result.html ?? '').length} bytes)`);
     } catch (err) {

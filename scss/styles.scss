@@ -1,15 +1,19 @@
 // Your SCSS styles go here
-@use 'styleguide/colours';
-@use 'styleguide/typography';
-@use 'styleguide/breakpoints';
+// @use 'styleguide/colours';
+// @use 'styleguide/typography';
+// @use 'styleguide/breakpoints';
 
-@use 'basics/main';
-@use 'basics/containers';
-@use 'basics/images';
-@use 'basics/layouts';
-@use 'basics/header';
-@use 'basics/blog';
-@use 'basics/home';
+// @use 'basics/main';
+// @use 'basics/containers';
+// @use 'basics/images';
+// @use 'basics/layouts';
+// @use 'basics/header';
+// @use 'basics/blog';
+// @use 'basics/home';
+
+// Documentation layout (chapter pages) — scoped to html.docs / body.docs.
+@use 'documentation/docs';
+@use 'documentation/prose';
 
 
 
