@@ -1,0 +1,24 @@
+{
+  "id": "chapter-3",
+  "author": "0x9d6ab5C2b8BB1c2C0da0b8c8c7f6A8D0F00dC0de",
+  "locale": "en",
+  "postType": "chapter",
+  "position": "3",
+  "creationDate": "2026-10-15T00:00:00.000Z",
+  "modifiedDate": "2026-10-15T00:00:00.000Z",
+  "tags": [],
+  "publication": "polyphony.eth",
+  "encryption": false,
+  "title": "Authoring",
+  "slug": "authoring",
+  "path": "/documentation/authoring/",
+  "content": "<p>Writing is local, and publishing is a separate, deliberate act. An author writes and revises on their own machine, and nothing in the protocol has to be reachable for that. The protocol defines an interface, not an application, so an author&#39;s work never depends on a single program: any number of writing tools can publish through it, ideally across implementations as well as within one. When the author publishes, they do not hand the work over. They encrypt it to their own account, place it on distributed storage, and share it with a publication under an agreement: the renderer can decrypt it only while that agreement is in force. It is an offer, not a transfer, and the author can make the same offer to anyone else.</p>\n<p>Behind every byline is an account. The account is public and permanent; the keys beneath it are not. Keys can be rotated without losing the account, so an author&#39;s history does not hang on a single secret. The account may be pseudonymous. The protocol never holds a legal name, though an author is free to tell anyone they like. An account may also name a wallet, with a signature that links the two, so that any payment due to the author arrives there directly, not through the publication&#39;s hands.</p>\n<p>Every author also keeps a public list of what they have published: their works and their agreements with publications, past and current, kept on the ledger and curated by the author alone. This makes the byline portable. Long after leaving a publication, an author can still show what they published there and when, and anyone can check it against the ledger.</p>\n<h3>What the protocol guarantees an author</h3>\n<p>An implementation must let every author:</p>\n<ol>\n<li>Write and revise without the network; publishing is a separate, deliberate act.</li>\n<li>Keep their work encrypted to their own account, usable by the renderer only under an agreement.</li>\n<li>End any agreement alone, at any time, and have the site rebuilt without the work.</li>\n<li>Revise and reissue a work, with every version signed and recorded.</li>\n<li>Rotate keys without losing their account, history or reputation.</li>\n<li>Publish pseudonymously; the protocol never holds a legal name.</li>\n<li>Receive their share of any payment directly, at a wallet linked to their account.</li>\n<li>Publish the same work anywhere else; no publication gets exclusivity.</li>\n<li>Keep a public list of their works and agreements, past and current, that only they curate and that survives leaving any publication.</li>\n</ol>",
+  "custom": {
+    "site_mark": "polyphony",
+    "site_title": "Polyphony",
+    "nav_label": "White paper",
+    "site_footer": "Polyphony white paper · working draft",
+    "home_label": "Home",
+    "description": "A publishing protocol for independent authors and collective publications."
+  }
+}

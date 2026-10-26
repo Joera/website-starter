@@ -1,0 +1,17 @@
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://neutralpress.mypinata.cloud https://fonts.googleapis.com https://fonts.gstatic.com 'unsafe-inline'; img-src 'self' data: https://neutralpress.mypinata.cloud; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com data:">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} · {{or custom.site_title publication}}</title>
+    <meta name="description" content="{{or custom.description publication}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+    {{!-- Publish-time stylesheet contract, unchanged from the other templates:
+          the assets builder rewrites the literal token `insert_stylesheet.css`
+          to the IPFS url of the compiled css. Locally that file does not exist,
+          so fall back to the copy `pnpm render:dev` writes to html/css/. --}}
+    <style id="custom-css"></style>
+    <script>fetch("insert_stylesheet.css").then(function(r){return r.ok?r.text():fetch("/css/styles.css").then(function(x){return x.text();});}).then(function(css){document.getElementById("custom-css").textContent=css;});</script>
+</head>

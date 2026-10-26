@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{language}}" class="docs">
+{{> docs-head}}
+<body class="docs">
+
+    {{!-- Full-width fixed bar. Holds the contents menu on small screens. --}}
+    {{> docs-header}}
+
+    <div class="frame">
+        {{!-- Fixed contents sidebar (menu items: one per chapter), from 1024px. --}}
+        {{> docs-aside}}
+
+        {{!-- Hero, chapter body, previous/next pager. --}}
+        {{> docs-main}}
+    </div>
+
+</body>
+</html>

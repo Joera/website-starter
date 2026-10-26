@@ -1,0 +1,21 @@
+<header class="site-header">
+    <details class="site-header__menu">
+        <summary aria-label="Toggle navigation">
+            <svg viewBox="0 0 10 9" width="10" height="9" aria-hidden="true"><path d="M.5 1h9M.5 8h9M.5 4.5h9" stroke="currentColor" stroke-linecap="round"/></svg>
+        </summary>
+        <nav class="site-header__menu-panel" aria-label="Contents">
+            {{> docs-nav}}
+        </nav>
+    </details>
+
+    {{!-- The mark is the entry point of the documentation: the first chapter. --}}
+    {{#each (slice collections.chapters 0 1)}}
+    <a class="site-header__mark" href="{{path}}"{{#if (eq slug ../slug)}} aria-current="page"{{/if}}>{{or custom.site_mark "polyphony"}}</a>
+    {{/each}}
+
+    <span class="site-header__divider" aria-hidden="true"></span>
+
+    <ul class="site-header__links" role="list">
+        <li><a href="/">{{or custom.home_label "Home"}}</a></li>
+    </ul>
+</header>

@@ -1,0 +1,27 @@
+<div class="site-main">
+    <main>
+        <div class="page-hero">
+            <div class="page-hero__inner">
+                {{#if position}}<p class="page-hero__kicker">Chapter {{position}}</p>{{/if}}
+                <h1>{{title}}</h1>
+            </div>
+        </div>
+
+        <article class="page-article">
+            <div class="prose">
+                {{!-- content arrives as HTML: the authoring step renders markdown
+                      (marked) before publishing, so this is a raw sink on purpose. --}}
+                {{{content}}}
+            </div>
+
+            {{!-- Prev/next over the same chapter ring: the renderer's built-in
+                  `prevNext` (circular, ordered by `position`, present in s2s main).
+                  Kept on one line so an empty result is a truly empty <nav> and
+                  `.pager:empty` hides it (a render action older than the helper
+                  simply drops the pager instead of showing a dead rule). --}}
+            <nav class="pager" aria-label="Previous and next">{{#if collections.chapters}}{{#each (prevNext collections.chapters position)}}{{#if @first}}<a class="pager__prev" href="{{path}}"><span>Previous</span>{{title}}</a>{{else}}<a class="pager__next" href="{{path}}"><span>Next</span>{{title}}</a>{{/if}}{{/each}}{{/if}}</nav>
+        </article>
+    </main>
+
+    {{> docs-footer}}
+</div>

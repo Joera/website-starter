@@ -1,0 +1,24 @@
+{
+  "id": "chapter-1",
+  "author": "0x9d6ab5C2b8BB1c2C0da0b8c8c7f6A8D0F00dC0de",
+  "locale": "en",
+  "postType": "chapter",
+  "position": "1",
+  "creationDate": "2026-10-15T00:00:00.000Z",
+  "modifiedDate": "2026-10-15T00:00:00.000Z",
+  "tags": [],
+  "publication": "polyphony.eth",
+  "encryption": false,
+  "title": "Abstract",
+  "slug": "abstract",
+  "path": "/documentation/abstract/",
+  "content": "<p>Publishing together runs on dependency. The writer&#39;s byline, income, and audience sit in whatever system the publication or the platform controls, so the side that can afford to walk away sets the terms. This paper proposes a publishing protocol in which neither party holds that position: authors keep cryptographic ownership of their work and can revoke it at any time; a publication is a brand, and its editorial policy is governed by a threshold rather than by a single owner — the agreements between author and publication, which both produce and either may end, are recorded on a ledger neither party operates; and the generator that renders and signs each page is open code bound to a key, executed by independent nodes, so no single party can produce a valid rendering alone — where &quot;valid&quot; means the rendering the author and publication agreed to. The protocol has an upgrade path and is subject to governance by quorum. It is meant to function within the rule of law. It is not a tool for protecting journalists from a hostile state. The protocol offers the rails for a rewards and payment model without imposing one: no third party is required, no fiat on-ramp or off-ramp is needed for it to function, and revenue splits between author and publication without passing through a single hand first. The result is a relationship that is real and temporary at once: writers and publications associate on terms either can end, and an editorial line held by people free to leave means something a captive one cannot.</p>",
+  "custom": {
+    "site_mark": "polyphony",
+    "site_title": "Polyphony",
+    "nav_label": "White paper",
+    "site_footer": "Polyphony white paper · working draft",
+    "home_label": "Home",
+    "description": "A publishing protocol for independent authors and collective publications."
+  }
+}
