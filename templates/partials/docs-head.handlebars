@@ -8,10 +8,5 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 
-    {{!-- Publish-time stylesheet contract, unchanged from the other templates:
-          the assets builder rewrites the literal token `insert_stylesheet.css`
-          to the IPFS url of the compiled css. Locally that file does not exist,
-          so fall back to the copy `pnpm render:dev` writes to html/css/. --}}
-    <style id="custom-css"></style>
-    <script>fetch("insert_stylesheet.css").then(function(r){return r.ok?r.text():fetch("/css/styles.css").then(function(x){return x.text();});}).then(function(css){document.getElementById("custom-css").textContent=css;});</script>
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>

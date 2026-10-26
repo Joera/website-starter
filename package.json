@@ -2,7 +2,7 @@
   "name": "website",
   "version": "1.0.0",
   "scripts": {
-    "sass": "sass scss/styles.scss css/styles.css",
+    "sass": "sass scss/styles.scss assets/css/main.css",
     "serve": "http-server html -p 3008 --cors -c-1",
     "render:dev": "tsx scripts/render-dev.ts"
   },
