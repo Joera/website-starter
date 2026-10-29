@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{language}}" class="docs">
+{{> docs-head}}
+<body class="docs">
+
+    {{!-- Full-width fixed bar. Holds the contents menu on small screens. --}}
+    {{> docs-header}}
+
+    <div class="frame">
+        {{!-- Fixed contents sidebar (menu items: one per chapter), from 1024px. --}}
+        {{> docs-aside}}
+
+        {{!-- Hero, chapter body, previous/next pager. --}}
+        <div class="site-main">
+            <main>
+                <div class="page-hero">
+                    <div class="page-hero__inner">
+                        <h1>{{title}}</h1>
+                        <h2>{{subtitle}}</h2>
+                        <span>Incredibly Neutral</span>
+                        <span>version 0.0.1</span>
+                        <span>28-10-2026</span>
+                    </div>
+                </div>
+
+                <article class="page-article">
+                    <div class="prose">
+                        {{!-- content arrives as HTML: the authoring step renders markdown
+                            (marked) before publishing, so this is a raw sink on purpose. --}}
+                        <h3>Abstract</h3>
+                        {{{content}}}
+                    </div>
+
+                </article>
+            </main>
+
+            {{> docs-footer}}
+        </div>
+    </div>
+
+</body>
+</html>

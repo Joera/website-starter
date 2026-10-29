@@ -1,6 +1,19 @@
 {
   "templateConfig": [
       {
+        "reference": "home",
+        "file": "home.handlebars",
+        "path": "/",
+        "collections": [
+          {
+            "slug": "chapters",
+            "filters": [{ "postType": "chapter" }],
+            "sortBy": "position"
+          }
+        ],
+        "filters": []
+      },
+      {
         "reference": "chapter",
         "file": "chapter.handlebars",
         "path": "/{slug}/",
