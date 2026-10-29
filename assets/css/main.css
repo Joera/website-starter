@@ -247,6 +247,13 @@ body.docs .page-hero h1 {
 
 body.docs .page-hero h1.headline {
   font-family: var(--font-headline);
+  text-transform: uppercase;
+}
+
+body.docs .page-hero h2 {
+  margin: 0.5rem 0 0.5rem 0;
+  line-height: 1.25;
+  font-size: 1.4rem;
 }
 
 body.docs .page-hero span {

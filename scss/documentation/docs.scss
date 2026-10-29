@@ -293,9 +293,18 @@ body.docs .page-hero h1 {
     color: var(--heading, inherit);
 }
 
+
+
 body.docs .page-hero h1.headline {
 
     font-family: var(--font-headline);
+    text-transform: uppercase;
+}
+
+body.docs .page-hero h2 {
+    margin: .5rem 0 .5rem 0;
+    line-height: 1.25;
+    font-size: 1.4rem;
 }
 
 
