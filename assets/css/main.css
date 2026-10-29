@@ -245,6 +245,10 @@ body.docs .page-hero h1 {
   color: var(--heading, inherit);
 }
 
+body.docs .page-hero h1.headline {
+  font-family: var(--font-headline);
+}
+
 body.docs .page-hero span {
   display: block;
 }
