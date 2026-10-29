@@ -245,6 +245,10 @@ body.docs .page-hero h1 {
   color: var(--heading, inherit);
 }
 
+body.docs .page-hero span {
+  display: block;
+}
+
 body.docs .page-hero__kicker {
   margin: 0 0 1rem;
   font-size: 1.125rem;
