@@ -3,7 +3,7 @@
 <div class="nav-group">
     <ul role="list">
         {{#each collections.chapters}}
-        <li><a class="nav-link" href="{{path}}"{{#if (eq slug ../slug)}} aria-current="page"{{/if}}>{{title}}</a></li>
+        <li><a class="nav-link" href="{{path}}"{{#if (eq slug ../slug)}} aria-current="page"{{/if}}>{{position}}. {{title}}</a></li>
         {{/each}}
     </ul>
 </div>
