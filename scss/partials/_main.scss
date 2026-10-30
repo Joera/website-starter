@@ -1,0 +1,35 @@
+// templates/partials/docs-main.handlebars + templates/chapter.handlebars /
+// templates/home.handlebars — the main column: offset below the fixed header,
+// clear of the aside, and holding the hero + article.
+//
+// `.frame` is the plain wrapper the templates put around aside + main; it has
+// no styles of its own (kept as a hook).
+
+body.docs .site-main {
+    @apply flex min-h-screen flex-col;
+
+    padding-top: var(--header-h); // custom token
+
+    > main {
+        @apply flex-auto;
+    }
+}
+
+body.docs .page-article {
+    @apply pt-8 pb-24;
+}
+
+// ---------- Breakpoints (Tailwind md / lg) ----------
+
+@media (min-width: 768px) {
+    body.docs .page-article {
+        @apply pt-16;
+    }
+}
+
+@media (min-width: 1024px) {
+    // clear the fixed aside
+    body.docs .site-main {
+        margin-left: var(--aside-w); // custom token
+    }
+}

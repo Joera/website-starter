@@ -2,7 +2,9 @@
   "name": "website",
   "version": "1.0.0",
   "scripts": {
-    "sass": "sass scss/styles.scss assets/css/main.css",
+    "css:custom": "sass scss/styles.scss .build/custom.css --no-source-map",
+    "css": "npm run css:custom && node scripts/build-css.mjs",
+    "sass": "npm run css",
     "serve": "http-server html -p 3008 --cors -c-1",
     "render:dev": "tsx scripts/render-dev.ts"
   },
@@ -10,6 +12,7 @@
     "cross-env": "^7.0.3",
     "http-server": "^14.1.1",
     "sass": "^1.83.0",
+    "tailwindcss": "4.3.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0"
   },

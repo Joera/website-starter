@@ -1,0 +1,36 @@
+// templates/partials/docs-nav.handlebars — the contents list.
+//
+// One group of chapter links, shared by the aside (desktop) and the header
+// disclosure (small screens), so it is styled position-independently.
+
+body.docs .nav-group {
+    @apply pb-4;
+
+    border-bottom: 1px solid var(--rule);
+
+    ul {
+        @apply mt-1;
+    }
+}
+
+body.docs .nav-group__label {
+    @apply block px-3 text-xs font-medium uppercase;
+
+    color: var(--label);
+}
+
+body.docs .nav-link {
+    @apply my-0.5 flex rounded-sm px-3 py-1;
+
+    transition: background-color 0.15s; // custom: background only
+
+    &:hover {
+        background: var(--nav-hover);
+    }
+
+    &[aria-current] {
+        @apply font-medium;
+
+        background: var(--nav-current);
+    }
+}

@@ -1,19 +1,30 @@
-// Your SCSS styles go here
-// @use 'styleguide/colours';
-// @use 'styleguide/typography';
-// @use 'styleguide/breakpoints';
+// Documentation publication — stylesheet entry point.
+//
+// Layout and type are taken from atproto.com (its Tailwind v3 build, read from
+// the page source). Each rule below is either a Tailwind utility written out, or
+// a custom addition marked CUSTOM.
+//
+// SCOPING: everything hangs off `html.docs` / `body.docs` — the chapter and home
+// templates set `class="docs"` on both — so any other template set keeps its own
+// theme untouched.
+//
+// Organisation mirrors templates/:
+//
+//   base/tokens  — the theme custom properties (night default, daylight opt-in)
+//   base/page    — the page shell: html.docs sizing, body.docs background/color
+//   partials/*   — one file per template partial, breakpoints co-located with
+//                  the rules they adjust
 
-// @use 'basics/main';
-// @use 'basics/containers';
-// @use 'basics/images';
-// @use 'basics/layouts';
-// @use 'basics/header';
-// @use 'basics/blog';
-// @use 'basics/home';
+// Base layer — first, because every partial reads the tokens it defines.
+@use 'base/tokens';
+@use 'base/page';
 
-// Documentation layout (chapter pages) — scoped to html.docs / body.docs.
-@use 'documentation/docs';
-@use 'documentation/prose';
-
-
-
+// One file per template partial.
+@use 'partials/header';   // docs-header.handlebars
+@use 'partials/aside';    // docs-aside.handlebars
+@use 'partials/nav';      // docs-nav.handlebars
+@use 'partials/main';     // docs-main.handlebars, chapter.handlebars, home.handlebars
+@use 'partials/hero';     // the hero inside docs-main / home
+@use 'partials/prose';    // the chapter body
+@use 'partials/pager';    // the prev/next pager
+@use 'partials/footer';   // docs-footer.handlebars

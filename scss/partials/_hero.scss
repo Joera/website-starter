@@ -1,0 +1,61 @@
+// The hero at the top of every chapter/home page (inside docs-main.handlebars
+// and home.handlebars).
+//
+// The dot field is the atproto hero: 2px squares on a 10px grid, drawn as a
+// masked background so it follows the theme (--dots).
+
+body.docs .page-hero {
+    @apply relative;
+
+    &::before {
+        content: "";
+        @apply absolute inset-0;
+
+        background: var(--dots);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect width='2' height='2'/%3E%3C/svg%3E") 0 0 / 10px 10px repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Crect width='2' height='2'/%3E%3C/svg%3E") 0 0 / 10px 10px repeat;
+    }
+}
+
+body.docs .page-hero__inner {
+    @apply relative max-w-6xl px-4 py-12;
+}
+
+body.docs .page-hero h1 {
+    @apply m-0 text-4xl font-medium;
+
+    font-family: var(--font-mono); // custom: token font
+    color: var(--heading, inherit);
+}
+
+body.docs .page-hero h1.headline {
+    @apply uppercase;
+
+    font-family: var(--font-headline); // custom: token font
+}
+
+body.docs .page-hero h2 {
+    @apply my-2 text-[1.4rem] leading-tight lowercase;
+}
+
+body.docs .page-hero span {
+    @apply block;
+}
+
+body.docs .page-hero__kicker {
+    @apply mb-4 text-lg;
+
+    color: var(--text-muted);
+}
+
+// ---------- Breakpoints (Tailwind md) ----------
+
+@media (min-width: 768px) {
+    body.docs .page-hero__inner {
+        @apply px-16 pt-24 pb-16;
+    }
+
+    body.docs .page-hero h1 {
+        @apply text-5xl;
+    }
+}

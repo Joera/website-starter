@@ -5,10 +5,28 @@ Soul2Soul website starter. Templates + partials live in `templates/`; SCSS in
 `scripts/contract-pull.ts` for pulling on-chain deals in mode 3).
 
 ```bash
-pnpm sass          # scss/styles.scss -> css/styles.css
+pnpm sass          # scss/ + Tailwind -> assets/css/main.css
 pnpm serve         # http-server html -p 3008 --cors -c-1  (preview)
 pnpm render:dev    # render fixtures -> html/<page>.html (mode 1)
 ```
+
+## styles
+
+Two steps, both run by `pnpm sass` (which is `npm run css`):
+
+1. `sass scss/styles.scss .build/custom.css` — SCSS stays the authoring
+   surface. `scss/styles.scss` is only an `@use` manifest; one partial per
+   template partial in `templates/partials/`, plus `scss/base/` for tokens and
+   the page reset. Cascade order is the `@use` order.
+2. `node scripts/build-css.mjs` — wraps that output in Tailwind CSS v4's layer
+   stack (`theme → base → components → utilities`), expands `@apply`, and emits
+   any utility classes used in `templates/`, writing `assets/css/main.css`.
+
+Structural CSS is written as Tailwind utilities via `@apply`; anything that uses
+a design token, a colour, or a value that departs from the stock scale stays
+explicit and is marked `// custom`. Preflight is **not** imported — the reset
+lives in `scss/base/_page.scss`, and preflight's bare-element resets would fight
+the per-element design.
 
 ## render:dev — standalone local render kit (RFC B, Option C)
 

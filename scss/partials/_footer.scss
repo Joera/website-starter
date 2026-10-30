@@ -1,0 +1,45 @@
+// templates/partials/docs-footer.handlebars — publication line + signature.
+//
+// Stacked on small screens, a single row from 640px.
+
+body.docs .site-footer {
+    @apply w-full px-4 pb-16;
+
+    max-width: var(--measure); // custom token
+    box-sizing: border-box;
+}
+
+body.docs .site-footer__inner {
+    @apply flex flex-col items-center justify-between gap-5 pt-8 text-xs;
+
+    border-top: 1px solid var(--rule-faint);
+    color: var(--text-muted);
+
+    p {
+        @apply m-0;
+    }
+}
+
+body.docs .site-footer__signature {
+    font-family: var(--font-mono); // custom: token font
+}
+
+// ---------- Breakpoints (Tailwind sm / md / lg) ----------
+
+@media (min-width: 640px) {
+    body.docs .site-footer__inner {
+        @apply flex-row;
+    }
+}
+
+@media (min-width: 768px) {
+    body.docs .site-footer {
+        @apply px-16 pb-16;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.docs .site-footer {
+        @apply max-w-5xl;
+    }
+}

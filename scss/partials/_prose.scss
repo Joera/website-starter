@@ -1,0 +1,155 @@
+// Chapter body copy — Tailwind's typography scale as configured on atproto.com.
+//
+// Structural CSS is Tailwind (@apply); values that differ from the stock scale,
+// use a design token, or are decoration-only stay explicit and marked custom.
+
+body.docs .prose {
+    @apply px-4 text-base;
+
+    > * {
+        max-width: var(--measure); // custom token (atproto: 40rem, not max-w-2xl's 42rem)
+    }
+
+    > :first-child {
+        @apply mt-0;
+    }
+
+    p {
+        @apply my-6;
+    }
+
+    // margin 4rem / 2.5rem and the 1.75rem line height are atproto overrides:
+    // stock text-2xl would be a 2rem line box.
+    h2 {
+        @apply relative mt-16 mb-2 text-[1.5rem] leading-7 font-semibold scroll-mt-24;
+
+        color: var(--heading, inherit);
+    }
+
+    h3 {
+        @apply relative mt-10 mb-2 text-lg font-semibold scroll-mt-24;
+
+        color: var(--heading, inherit);
+    }
+
+    h2 + *,
+    h3 + * {
+        @apply mt-0;
+    }
+
+    // in-page heading anchors (custom: only rendered if the content has them)
+    .anchor {
+        @apply absolute hidden size-5 items-center justify-center rounded-lg text-xs;
+
+        left: -1.75rem;
+        top: 0.25rem;
+        color: var(--text-muted);
+        background: var(--nav-hover);
+        box-shadow: inset 0 0 0 1px var(--bullets);
+        opacity: 0;
+        transition: opacity 0.15s;
+    }
+
+    h2:hover .anchor,
+    h3:hover .anchor,
+    .anchor:focus {
+        opacity: 1;
+    }
+
+    a:not(.anchor) {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: var(--link-underline);
+        transition: color 0.15s, text-decoration-color 0.15s;
+        // custom: underline colour is themed, so not decoration-solid utility
+
+        &:hover {
+            color: var(--link-hover);
+            text-decoration-color: var(--link-underline-hover);
+        }
+    }
+
+    strong {
+        @apply font-medium;
+
+        color: var(--bold);
+    }
+
+    ul,
+    ol {
+        @apply my-5 pl-[1.625rem];
+    }
+
+    ul {
+        @apply list-disc;
+    }
+
+    ol {
+        @apply list-decimal;
+    }
+
+    ul > li::marker {
+        color: var(--bullets);
+    }
+
+    ol > li::marker {
+        color: var(--counters);
+    }
+
+    li {
+        @apply my-2;
+    }
+
+    blockquote {
+        @apply mx-0 my-8 pl-5 font-medium italic;
+
+        border-left: 0.25rem solid var(--quote-border);
+        color: var(--bold);
+    }
+
+    // font-size stays explicit: text-sm would also set a line height on inline code
+    code {
+        font-size: 0.875rem;
+        font-family: var(--font-mono);
+        @apply rounded-xs px-1.5 py-1;
+
+        box-shadow: inset 0 0 0 1px var(--rule);
+    }
+
+    pre {
+        @apply my-6 overflow-x-auto p-4;
+
+        box-shadow: inset 0 0 0 1px var(--rule);
+
+        code {
+            @apply p-0;
+
+            box-shadow: none;
+        }
+    }
+
+    hr {
+        @apply my-12;
+
+        border: 0;
+        border-top: 1px solid var(--rule-faint);
+    }
+}
+
+// ---------- Breakpoints (Tailwind md / lg) ----------
+
+@media (min-width: 768px) {
+    body.docs .prose {
+        @apply px-16;
+    }
+
+    body.docs .prose .anchor {
+        @apply flex;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.docs .prose > * {
+        max-width: var(--measure-lg); // custom token (atproto: 44rem)
+    }
+}

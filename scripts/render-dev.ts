@@ -391,16 +391,15 @@ async function main(): Promise<void> {
   const htmlDir = path.join(PKG_ROOT, 'html');
   mkdirSync(htmlDir, { recursive: true });
 
-  // The templates load their stylesheet with the publish-time
-  // `insert_stylesheet.css` token; there is no such file locally, so the docs
-  // head falls back to /css/styles.css. Put the compiled css where the preview
-  // server can serve it (`pnpm sass` first).
-  const compiledCss = path.join(PKG_ROOT, 'css', 'styles.css');
+  // The templates link /assets/css/main.css (see partials/docs-head.handlebars).
+  // Put the compiled stylesheet where the preview server can serve it
+  // (`pnpm sass` first).
+  const compiledCss = path.join(PKG_ROOT, 'assets', 'css', 'main.css');
   if (existsSync(compiledCss)) {
-    mkdirSync(path.join(htmlDir, 'css'), { recursive: true });
-    copyFileSync(compiledCss, path.join(htmlDir, 'css', 'styles.css'));
+    mkdirSync(path.join(htmlDir, 'assets', 'css'), { recursive: true });
+    copyFileSync(compiledCss, path.join(htmlDir, 'assets', 'css', 'main.css'));
   } else {
-    console.warn('  render-dev: css/styles.css missing — run `pnpm sass` for a styled preview');
+    console.warn('  render-dev: assets/css/main.css missing — run `pnpm sass` for a styled preview');
   }
 
   console.log(`render-dev: runner=${RUNNER_URL}`);

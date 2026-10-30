@@ -1,0 +1,108 @@
+// templates/partials/docs-header.handlebars — the fixed bar.
+//
+// Full width, above everything. On small screens it also holds the contents
+// disclosure (the aside only exists from 1024px).
+//
+// Structural CSS is Tailwind (@apply); anything using a design token, a colour,
+// or a value atproto overrode stays explicit and is marked custom.
+
+body.docs .site-header {
+    // custom: the starter theme styles the bare `header` element
+    font-family: var(--font-headline);
+    text-transform: uppercase;
+    justify-content: flex-start;
+
+    @apply fixed top-0 right-0 left-0 z-50 flex items-center gap-4 px-4;
+
+    height: var(--header-h); // custom token (h-14)
+    background: var(--header-bg); // custom
+    backdrop-filter: blur(4px); // custom (blur-xs)
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: inset 0 -1px 0 var(--hairline); // custom
+}
+
+body.docs .site-header__mark {
+    @apply block font-extrabold leading-6;
+
+    margin: 0;
+    font-family: var(--font-mono); // custom: token font, not Tailwind's default mono
+}
+
+body.docs .site-header__divider {
+    @apply hidden h-5 w-px;
+
+    background: var(--rule);
+}
+
+body.docs .site-header__links {
+    @apply flex items-center gap-8;
+
+    a {
+        @apply block text-sm;
+
+        color: var(--header-link);
+        transition: color 0.15s; // custom: colour only, not transition-colors
+
+        &:hover,
+        &[aria-current] {
+            color: var(--header-link-hover);
+        }
+    }
+}
+
+// ---------- Contents disclosure (small screens) ----------
+
+body.docs .site-header__menu {
+
+    > summary {
+        @apply flex size-6 cursor-pointer items-center justify-center rounded-md;
+
+        list-style: none;
+
+        &::-webkit-details-marker {
+            @apply hidden;
+        }
+
+        &:hover {
+            background: var(--rule-faint);
+        }
+
+        // the starter theme styles the bare `header svg`
+        svg {
+            @apply block h-auto w-2.5 max-w-none;
+
+            margin: 0;
+        }
+    }
+}
+
+body.docs .site-header__menu-panel {
+    @apply fixed bottom-0 left-0 overflow-y-auto px-5 pt-4 pb-8;
+
+    top: var(--header-h); // custom token
+    width: min(var(--aside-w), 100vw); // custom token
+    background: var(--bg);
+    border-right: 1px solid var(--rule);
+}
+
+// ---------- Breakpoints (Tailwind sm / lg) ----------
+
+@media (min-width: 640px) {
+    body.docs .site-header {
+        @apply gap-8 px-6;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.docs .site-header {
+        @apply px-8;
+    }
+
+    body.docs .site-header__menu {
+        @apply hidden;
+    }
+
+    body.docs .site-header__divider {
+        @apply block;
+    }
+}

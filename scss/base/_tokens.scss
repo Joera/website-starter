@@ -1,0 +1,76 @@
+// Design tokens — the theme the partials read through `var()`.
+//
+// Values come from atproto.com's Tailwind theme; the utility/key each one is
+// taken from is noted inline so a value can be traced back.
+//
+// NIGHT IS THE DEFAULT. Daylight is opt-in: `<html class="docs docs--light">`.
+// The two palettes are deliberately one block each — flip them and the whole
+// site flips with no other change.
+
+html.docs {
+    // Native scrollbars, form controls and the like follow the night theme.
+    color-scheme: dark;
+
+    // Layout metrics
+    --header-h: 3.5rem;           // h-14
+    --aside-w: 18rem;             // lg:w-72
+    --measure: 40rem;             // max-w-2xl
+    --measure-lg: 44rem;          // lg:max-w-3xl
+
+    // Type
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-headline: "Spinnaker", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    // Night view — black ground, white type; the greys are the daylight
+    // palette inverted.
+    --bg: #000;
+    --text: #f4f4f5;              // zinc-100
+    --heading: #fff;
+    --text-muted: #a1a1aa;        // zinc-400
+    --label: #cbd5e1;             // slate-300
+    --header-link: #e2e8f0;       // slate-200
+    --header-link-hover: #fff;
+    --header-bg: rgb(0 0 0 / 0.6);
+    --hairline: rgb(255 255 255 / 0.075);
+    --rule: rgb(255 255 255 / 0.1);
+    --rule-faint: rgb(255 255 255 / 0.05);
+    --nav-hover: #18181b;         // zinc-900
+    --nav-current: #27272a;       // zinc-800
+    --dots: #27272a;
+    --bold: #fff;
+    --link-underline: rgb(96 165 250 / 0.35);
+    --link-hover: #60a5fa;
+    --link-underline-hover: rgb(96 165 250 / 0.45);
+    --bullets: #52525b;           // zinc-600
+    --counters: #a1a1aa;
+    --quote-border: #3f3f46;      // zinc-700
+}
+
+// Daylight palette — opt-in only. Kept so the two themes can be flipped back
+// with one class (or deleted if night is the only theme wanted).
+html.docs.docs--light {
+    color-scheme: light;
+
+    --bg: #fff;
+    --text: #000;
+    --heading: #000;
+    --text-muted: #52525b;        // zinc-600
+    --label: #64748b;             // slate-500
+    --header-link: #334155;       // slate-700
+    --header-link-hover: #0f172a; // slate-900
+    --header-bg: rgb(255 255 255 / 0.5);
+    --hairline: rgb(24 24 27 / 0.075);
+    --rule: rgb(24 24 27 / 0.1);
+    --rule-faint: rgb(24 24 27 / 0.05);
+    --nav-hover: #fafafa;         // zinc-50
+    --nav-current: #f4f4f5;       // zinc-100
+    --dots: #e2e8f0;              // slate-200
+    --bold: #18181b;
+    --link-underline: rgb(82 82 91 / 0.5);
+    --link-hover: #2563eb;
+    --link-underline-hover: rgb(59 130 246 / 0.3);
+    --bullets: #d4d4d8;
+    --counters: #71717a;
+    --quote-border: #e4e4e7;
+}
