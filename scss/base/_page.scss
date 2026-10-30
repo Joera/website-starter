@@ -11,15 +11,16 @@ html.docs {
 }
 
 body.docs {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply m-0 min-h-screen antialiased;
 
+    background: var(--bg); // custom
+    color: var(--text); // custom
+    font-family: var(--font-sans); // custom: token font
+    line-height: 1.5;
+
+    // Preflight is deliberately not imported (see scripts/build-css.mjs), so the
+    // box-sizing reset lives here. Borders are left at browser defaults on
+    // purpose: the partials set them explicitly where they want one.
     *,
     *::before,
     *::after {

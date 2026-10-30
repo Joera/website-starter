@@ -1,8 +1,10 @@
 // Documentation publication — stylesheet entry point.
 //
-// Layout and type are taken from atproto.com (its Tailwind v3 build, read from
-// the page source). Each rule below is either a Tailwind utility written out, or
-// a custom addition marked CUSTOM.
+// Layout and type are taken from atproto.com (its Tailwind build, read from the
+// page source). Tailwind is the base: structural CSS is written as utilities via
+// `@apply`, which scripts/build-css.mjs expands. Anything that reads a design
+// token, sets a colour, or departs from the stock scale stays explicit and is
+// marked `// custom`.
 //
 // SCOPING: everything hangs off `html.docs` / `body.docs` — the chapter and home
 // templates set `class="docs"` on both — so any other template set keeps its own
