@@ -4,13 +4,11 @@
 // page source). Utility classes are written out as plain CSS; the original
 // utility is noted where it helps trace a value back.
 //
-// SCOPING: everything here hangs off `html.docs` / `body.docs` (the chapter
-// template sets `class="docs"` on both), so the blog templates (`home`, `post`,
-// `page`) keep the theme from scss/basics/* untouched. The two overrides the
-// chapter page does need — the 16px rem scale and no `100vw` overflow — are on
-// `html.docs` and win over `scss/basics/main.scss` on specificity.
+// The tokens live on `:root`, so this stylesheet is the page's whole theme —
+// there is no second template set to scope against any more (scss/basics/* went
+// with the starter's blog templates).
 
-html.docs {
+:root {
     width: 100%;
     font-size: 16px; // the design is authored against a 16px rem (basics/ uses 12–14px)
     -webkit-text-size-adjust: 100%;
@@ -47,7 +45,7 @@ html.docs {
 }
 
 @media (prefers-color-scheme: dark) {
-    html.docs {
+    :root {
         --bg: #18181b;            // zinc-900
         --text: #d4d4d8;
         --heading: #fff;
@@ -71,7 +69,7 @@ html.docs {
     }
 }
 
-body.docs {
+body {
     margin: 0;
     min-height: 100vh;
     background: var(--bg);
@@ -101,7 +99,7 @@ body.docs {
 
 // ---------- Header: full width, fixed, above everything ----------
 
-body.docs .site-header {
+.site-header {
 
     // the starter theme styles the bare `header` element (scss/basics/header.scss)
     font-family: var(--font-headline);
@@ -122,22 +120,28 @@ body.docs .site-header {
     box-shadow: inset 0 -1px 0 var(--hairline);
 }
 
-body.docs .site-header__mark {
+.site-header__mark {
     display: block;
     margin: 0;
     font-family: var(--font-mono);
     font-weight: 800;
     line-height: 1.5rem;
+    text-transform: lowercase;
+
+    span {
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+    }
 }
 
-body.docs .site-header__divider {
+.site-header__divider {
     display: none;
     width: 1px;
     height: 1.25rem;
     background: var(--rule);
 }
 
-body.docs .site-header__links {
+.site-header__links {
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -158,7 +162,7 @@ body.docs .site-header__links {
 
 // Small screens: the contents list lives in a disclosure in the header.
 
-body.docs .site-header__menu {
+.site-header__menu {
 
     > summary {
         list-style: none;
@@ -189,7 +193,7 @@ body.docs .site-header__menu {
     }
 }
 
-body.docs .site-header__menu-panel {
+.site-header__menu-panel {
     position: fixed;
     top: var(--header-h);
     left: 0;
@@ -202,7 +206,7 @@ body.docs .site-header__menu-panel {
 }
 
 @media (min-width: 640px) {
-    body.docs .site-header {
+    .site-header {
         gap: 2rem;
         padding: 0 1.5rem;
     }
@@ -210,20 +214,29 @@ body.docs .site-header__menu-panel {
 
 // ---------- Aside: fixed below the header, left ----------
 
-body.docs .site-aside {
+.site-aside {
     display: none;
 }
 
-body.docs .nav-group {
+.nav-group {
     padding: 0 0 1rem;
     border-bottom: 1px solid var(--rule);
 
     ul {
         margin-top: 0.25rem;
     }
+
+    ul:last-of-type {
+
+        margin-top: 3rem;
+
+        li a {
+            font-weight: 700; 
+        }
+    }
 }
 
-body.docs .nav-group__label {
+.nav-group__label {
     display: block;
     padding: 0 0.75rem;
     font-size: 0.75rem;
@@ -233,7 +246,7 @@ body.docs .nav-group__label {
     color: var(--label);
 }
 
-body.docs .nav-link {
+.nav-link {
     display: flex;
     margin: 0.125rem 0;
     padding: 0.25rem 0.75rem;
@@ -252,7 +265,7 @@ body.docs .nav-link {
 
 // ---------- Main ----------
 
-body.docs .site-main {
+.site-main {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -263,7 +276,7 @@ body.docs .site-main {
     }
 }
 
-body.docs .page-hero {
+.page-hero {
     position: relative;
 
     &::before {
@@ -278,13 +291,13 @@ body.docs .page-hero {
     }
 }
 
-body.docs .page-hero__inner {
+.page-hero__inner {
     position: relative;
     max-width: 72rem; // max-w-6xl
     padding: 3rem 1rem;
 }
 
-body.docs .page-hero h1 {
+.page-hero h1 {
     margin: 0;
     font-family: var(--font-mono);
     font-weight: 500;
@@ -295,37 +308,38 @@ body.docs .page-hero h1 {
 
 
 
-body.docs .page-hero h1.headline {
+.page-hero h1.headline {
 
     font-family: var(--font-headline);
     text-transform: uppercase;
 }
 
-body.docs .page-hero h2 {
+.page-hero h2 {
     margin: .5rem 0 .5rem 0;
     line-height: 1.25;
     font-size: 1.4rem;
+    text-transform: lowercase;
 }
 
 
-body.docs .page-hero span {
+.page-hero span {
     display: block;
 }
 
-body.docs .page-hero__kicker {
+.page-hero__kicker {
     margin: 0 0 1rem;
     font-size: 1.125rem;
     line-height: 1.75rem;
     color: var(--text-muted);
 }
 
-body.docs .page-article {
+.page-article {
     padding: 2rem 0 6rem;
 }
 
 // ---------- Pager and footer ----------
 
-body.docs .pager {
+.pager {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
@@ -354,19 +368,19 @@ body.docs .pager {
     }
 }
 
-body.docs .pager__next {
+.pager__next {
     margin-left: auto;
     text-align: right;
 }
 
-body.docs .site-footer {
+.site-footer {
     width: 100%;
     max-width: var(--measure);
     padding: 0 1rem 4rem;
     box-sizing: border-box;
 }
 
-body.docs .site-footer__inner {
+.site-footer__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -383,64 +397,60 @@ body.docs .site-footer__inner {
     }
 }
 
-body.docs .site-footer__signature {
+.site-footer__signature {
     font-family: var(--font-mono);
 }
 
 // ---------- Breakpoints (Tailwind sm/md/lg) ----------
 
+// A breakpoint block only wins where it comes after the rule it adjusts — it has
+// the same specificity, so source order decides. The `.prose` overrides live in
+// documentation/prose.scss, next to the rules they override.
+
 @media (min-width: 640px) {
-    body.docs .site-footer__inner {
+    .site-footer__inner {
         flex-direction: row;
     }
 }
 
 @media (min-width: 768px) {
-    body.docs .page-hero__inner {
+    .page-hero__inner {
         padding: 6rem 4rem 4rem;
     }
 
-    body.docs .page-hero h1 {
+    .page-hero h1 {
         font-size: 3rem;
         line-height: 1;
     }
 
-    body.docs .page-article {
+    .page-article {
         padding-top: 4rem;
     }
 
-    body.docs .prose {
-        padding: 0 4rem;
-    }
-
-    body.docs .prose .anchor {
-        display: flex;
-    }
-
-    body.docs .pager {
+    .pager {
         margin-left: 4rem;
         margin-right: 4rem;
     }
 
-    body.docs .site-footer {
+    .site-footer {
         padding: 0 4rem 4rem;
     }
 }
 
 @media (min-width: 1024px) {
-    body.docs .site-header {
+    .site-header {
         padding: 0 2rem;
     }
 
-    body.docs .site-header__menu {
+    .site-header__menu {
         display: none;
     }
 
-    body.docs .site-header__divider {
+    .site-header__divider {
         display: block;
     }
 
-    body.docs .site-aside {
+    .site-aside {
         display: block;
         position: fixed;
         top: var(--header-h);
@@ -453,19 +463,15 @@ body.docs .site-footer__signature {
         border-right: 1px solid var(--rule);
     }
 
-    body.docs .site-main {
+    .site-main {
         margin-left: var(--aside-w);
     }
 
-    body.docs .prose > * {
+    .pager {
         max-width: var(--measure-lg);
     }
 
-    body.docs .pager {
-        max-width: var(--measure-lg);
-    }
-
-    body.docs .site-footer {
+    .site-footer {
         max-width: 64rem; // lg:max-w-5xl
     }
 }

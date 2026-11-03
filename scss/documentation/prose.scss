@@ -1,7 +1,7 @@
 // Prose for chapter pages — the Tailwind typography scale as configured on
-// atproto.com, written out as plain CSS. Only applies inside `body.docs`.
+// atproto.com, written out as plain CSS.
 
-body.docs .prose {
+.prose {
     padding: 0 1rem;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -144,5 +144,27 @@ body.docs .prose {
         border: 0;
         border-top: 1px solid var(--rule-faint);
         margin: 3rem 0;
+    }
+}
+
+// ---------- Breakpoints (Tailwind md/lg) ----------
+
+// These belong in this file, after the rules above: same specificity, so only
+// source order decides whether the override wins. Keeping them in docs.scss
+// (which is @use'd first) silently lost both.
+
+@media (min-width: 768px) {
+    .prose {
+        padding: 0 4rem;
+    }
+
+    .prose .anchor {
+        display: flex;
+    }
+}
+
+@media (min-width: 1024px) {
+    .prose > * {
+        max-width: var(--measure-lg);
     }
 }

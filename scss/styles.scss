@@ -1,17 +1,9 @@
-// Your SCSS styles go here
-// @use 'styleguide/colours';
-// @use 'styleguide/typography';
-// @use 'styleguide/breakpoints';
-
-// @use 'basics/main';
-// @use 'basics/containers';
-// @use 'basics/images';
-// @use 'basics/layouts';
-// @use 'basics/header';
-// @use 'basics/blog';
-// @use 'basics/home';
-
-// Documentation layout (chapter pages) — scoped to html.docs / body.docs.
+// Documentation layout (chapter pages).
+//
+// Order matters twice over: it is the cascade order of the emitted sheet, and a
+// breakpoint block only wins against a rule it comes after. So a file that
+// overrides another's rules has to be @use'd later, and a file's own breakpoints
+// have to sit at the bottom of that file.
 @use 'documentation/docs';
 @use 'documentation/prose';
 
