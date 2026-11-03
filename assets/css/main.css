@@ -185,7 +185,7 @@ body ul[role=list] {
   border-bottom: 1px solid var(--rule);
 }
 .nav-group ul[role=list] {
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 .nav-group ul[role=list]:last-of-type {
   margin-top: 3rem;
@@ -254,6 +254,7 @@ body ul[role=list] {
   font-size: 2.25rem;
   line-height: 2.5rem;
   color: var(--heading, inherit);
+  text-transform: uppercase;
 }
 
 .page-hero h1.headline {
@@ -349,7 +350,6 @@ body ul[role=list] {
     padding: 6rem 4rem 4rem;
   }
   .page-hero h1 {
-    font-size: 2.4rem;
     line-height: 1;
   }
   .page-article {

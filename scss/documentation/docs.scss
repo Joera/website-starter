@@ -224,7 +224,7 @@ body {
     border-bottom: 1px solid var(--rule);
 
     ul[role="list"] {
-        margin-top: 4rem;
+        margin-top: 5rem;
     }
 
     ul[role="list"]:last-of-type {
@@ -305,6 +305,7 @@ body {
     font-size: 2.25rem;
     line-height: 2.5rem;
     color: var(--heading, inherit);
+    text-transform: uppercase;
 }
 
 
@@ -420,7 +421,7 @@ body {
     }
 
     .page-hero h1 {
-        font-size: 2.4rem;
+        // font-size: 2.4rem;
         line-height: 1;
     }
 
