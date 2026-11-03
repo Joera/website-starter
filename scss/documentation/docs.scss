@@ -124,13 +124,14 @@ body {
     display: block;
     margin: 0;
     font-family: var(--font-mono);
-    font-weight: 800;
+    
     line-height: 1.5rem;
     text-transform: lowercase;
 
     span {
-        font-family: var(--font-mono);
+        font-family: var(--font-headline);
         text-transform: uppercase;
+        font-weight: 800;
     }
 }
 

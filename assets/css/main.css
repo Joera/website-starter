@@ -102,13 +102,13 @@ body ul[role=list] {
   display: block;
   margin: 0;
   font-family: var(--font-mono);
-  font-weight: 800;
   line-height: 1.5rem;
   text-transform: lowercase;
 }
 .site-header__mark span {
-  font-family: var(--font-mono);
+  font-family: var(--font-headline);
   text-transform: uppercase;
+  font-weight: 800;
 }
 
 .site-header__divider {
