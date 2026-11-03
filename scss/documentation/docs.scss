@@ -223,11 +223,11 @@ body {
     padding: 0 0 1rem;
     border-bottom: 1px solid var(--rule);
 
-    ul {
+    ul[role="list"] {
         margin-top: 4rem;
     }
 
-    ul:last-of-type {
+    ul[role="list"]:last-of-type {
 
         margin-top: 3rem;
 
