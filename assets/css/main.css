@@ -185,7 +185,7 @@ body ul[role=list] {
   border-bottom: 1px solid var(--rule);
 }
 .nav-group ul {
-  margin-top: 0.25rem;
+  margin-top: 4rem;
 }
 .nav-group ul:last-of-type {
   margin-top: 3rem;
