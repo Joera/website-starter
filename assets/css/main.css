@@ -105,7 +105,7 @@ body ul[role=list] {
   line-height: 1.5rem;
   text-transform: lowercase;
 }
-.site-header__mark span {
+.site-header__mark .site-header__wordmark {
   font-family: var(--font-headline);
   text-transform: uppercase;
   font-weight: 800;
@@ -116,6 +116,33 @@ body ul[role=list] {
   width: 1px;
   height: 1.25rem;
   background: var(--rule);
+}
+
+.site-header__tagline {
+  display: none;
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+.site-header__actions a {
+  display: flex;
+  color: var(--header-link);
+  transition: color 0.15s;
+}
+.site-header__actions a:hover, .site-header__actions a:focus-visible {
+  color: var(--header-link-hover);
+}
+
+.icon {
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+  fill: currentColor;
 }
 
 .site-header__links {
@@ -174,6 +201,9 @@ body ul[role=list] {
   .site-header {
     gap: 2rem;
     padding: 0 1.5rem;
+  }
+  .site-header__tagline {
+    display: inline;
   }
 }
 .site-aside {
@@ -343,6 +373,9 @@ body ul[role=list] {
 @media (min-width: 640px) {
   .site-footer__inner {
     flex-direction: row;
+  }
+  .site-footer__inner > div {
+    flex: 1;
   }
 }
 @media (min-width: 768px) {

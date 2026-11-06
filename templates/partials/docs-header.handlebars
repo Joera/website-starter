@@ -8,11 +8,21 @@
         </nav>
     </details>
 
-    {{!-- The mark is the entry point of the documentation: the first chapter. --}}
+    {{!-- The mark is the entry point of the documentation: the first chapter.
+          The tagline is its own span so the small-screen header can drop it and
+          keep the mark on one line next to the actions. --}}
     {{#each (slice collections.chapters 0 1)}}
-    <a class="site-header__mark" href="/"><span>Polyphony</span>: a publishing protocol for independent authors and collective publications</a>
+    <a class="site-header__mark" href="/"><span class="site-header__wordmark">Polyphony</span><span class="site-header__tagline">: a publishing protocol for independent authors and collective publications</span></a>
     {{/each}}
 
-    <span class="site-header__divider" aria-hidden="true"></span>
+    {{!-- Site-wide links, right aligned, same targets as the footer. Icon only,
+          so each anchor carries its label in aria-label. The SVGs are vendored
+          Phosphor partials — plain <svg>, no JS (see icon-*.handlebars). --}}
+    <div class="site-header__actions">
+        <span class="site-header__divider" aria-hidden="true"></span>
+        <a href="https://github.com/Incredibly-Neutral/Soul2Soul" target="_blank" rel="noopener" aria-label="GitHub">{{> icon-github}}</a>
+        <a href="/llms.txt" target="_blank" rel="noopener" aria-label="Agents (llms.txt)">{{> icon-agents}}</a>
+        <a href="/assets/polyphony-white-paper.pdf" target="_blank" rel="noopener" aria-label="Download (PDF)">{{> icon-download}}</a>
+    </div>
 
 </header>

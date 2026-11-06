@@ -128,7 +128,7 @@ body {
     line-height: 1.5rem;
     text-transform: lowercase;
 
-    span {
+    .site-header__wordmark {
         font-family: var(--font-headline);
         text-transform: uppercase;
         font-weight: 800;
@@ -140,6 +140,41 @@ body {
     width: 1px;
     height: 1.25rem;
     background: var(--rule);
+}
+
+// The tagline is dropped below the sm breakpoint: with the actions in the bar
+// there is no room for it on a phone, so the mark stays on one line.
+.site-header__tagline {
+    display: none;
+}
+
+// Right-aligned site-wide links (github / agents / download). Icon only — the
+// anchors carry their labels in aria-label; the SVGs are the vendored Phosphor
+// partials templates/partials/icon-*.handlebars.
+.site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+
+    a {
+        display: flex;
+        color: var(--header-link);
+        transition: color 0.15s;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--header-link-hover);
+        }
+    }
+}
+
+.icon {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+    fill: currentColor;
 }
 
 .site-header__links {
@@ -210,6 +245,10 @@ body {
     .site-header {
         gap: 2rem;
         padding: 0 1.5rem;
+    }
+
+    .site-header__tagline {
+        display: inline;
     }
 }
 
@@ -412,6 +451,10 @@ body {
 @media (min-width: 640px) {
     .site-footer__inner {
         flex-direction: row;
+
+        > div  {
+            flex: 1;
+        }
     }
 }
 

@@ -1,0 +1,109 @@
+
+#### What the protocol guarantees a publication
+An implementation must let every publication:
+1. Use its own name, and design its site with its own templates and styles.
+2. Choose its own governance, with one holder or several and any threshold, recorded in public.
+3. Let its holders and editors act pseudonymously; the protocol never holds their legal names.
+4. Decide which authors it trusts and which manuscripts it admits, and change either at any time, on the record.
+5. Read any manuscript offered to it, through the reviewers it has authorised, until it declines it or the author withdraws it.
+6. Decline any manuscript, and end any agreement from its side, with immediate effect.
+7. Trigger a rebuild of its site at any time.
+8. Keep its name pointing only at sites the renderer has built from the agreements in force.
+9. Take back the right to change what its name points to by leaving the protocol.
+10. See every revision of a manuscript it carries, be notified of it, and review it first unless it trusts the author.
+11. Keep a record of everything it has published and every byline it has carried; an ended agreement is marked as ended, never removed.
+12. Carry every manuscript exactly as its author signed it; no one, the publication included, can alter one.
+13. Be paid directly, at a wallet it names.
+### 5. The agreement
+An agreement is between an author and a publication, over a single manuscript. It records who wrote the manuscript, that the publication may publish it, how any revenue divides between them, and whether, and for how long, a reader must pass the reader gate to read it (sections 6 and 8). The split is public, because a reader who pays needs to know where the money goes; section 8, on monetization, describes how it is paid. Both parties enter it: the author by offering the manuscript, the publication by admitting it, or in advance, by trusting the author. Withdrawing that trust later affects only future offers; agreements already made stand.
+What a publication publishes is exactly the set of agreements in force, each showing the latest version the publication has approved; from a trusted author, that is always the latest. There is no separate list: a manuscript is published because an agreement covers it, and stops being published when that agreement ends, every version with it. Admitting a manuscript is all it takes to put it on the site; the next build carries it.
+Agreements are recorded on the ledger, where neither party can rewrite them. Nor can anyone but the implementation's governance, by publishing new code, change the rules an agreement runs under, meaning how it is entered and ended, and who may decrypt under it. They are set in the manuscript's gates when it is encrypted (section 6). An agreement transfers nothing: the work always remains the author's, and the publication's permission to publish it lasts only as long as the agreement.
+#### What the protocol guarantees about an agreement
+An implementation must make every agreement:
+1. Cover a single manuscript, and show the latest version the publication has approved.
+2. Record the author, the publication's permission to publish, how any revenue divides, and whether, and for how long, a reader must pass the reader gate to read it.
+3. Need the consent of both parties, the publication's given per manuscript or in advance by trusting the author.
+4. End when either party ends it, alone, from the moment the ending is recorded on the ledger.
+5. Be the only grounds on which the renderer decrypts a manuscript for a publication.
+6. Sit on the ledger, where neither party can rewrite it, and stay there when it ends, marked as ended.
+7. Run under rules that no one but the implementation's governance, by publishing new code, can change once the manuscript is encrypted.
+### 6. Gates
+A manuscript is encrypted to the press's key. Who can decrypt it, and when, is settled by gates: conditions fixed in advance, which no one can change afterwards. What a gate reads from the ledger, such as whether an agreement is in force, can change; the gate itself cannot. Each gate is checked at the moment someone asks, and must pass before anything is decrypted. A gate decides only whether a manuscript can be decrypted, not what is done with it afterwards. Where the gates run, and what has to be trusted about them, is the subject of section 7.
+Two gates open a manuscript to people. The author can decrypt their own manuscript at any time. The reviewers of a publication can decrypt a manuscript offered to it, until the publication declines it or the author withdraws it. What they have read by then stays read; they just cannot decrypt it again.
+Two gates open it to the renderer, the part of the press that builds a publication's pages. The renderer decrypts a manuscript only while an agreement covering it is in force, and only the version the publication has approved. And it builds and publishes a site only when asked by someone with the right to ask: the author of a manuscript the site carries or has carried, a holder of the publication, or someone the holders have authorised. A request cannot put anything on the site, because the renderer builds only from the agreements in force.
+The last gate is for readers, and only when an agreement includes monetization (section 8). Whether a manuscript sits behind it, and for how long, is agreed by both parties along with the split, and holds for as long as the agreement does; what the gate asks of a reader, such as a payment or a membership, is the publication's choice (section 8). Neither party can change what they agreed alone: changing it means ending the agreement, which takes the manuscript off the site, and making a new one. While they hold, a reader gets the manuscript's text only when the check passes on the ledger. The check answers yes or no; it never holds the money.
+#### What the protocol guarantees about its gates
+An implementation must:
+1. Let the author decrypt their own manuscript at any time.
+2. Let the reviewers of a publication decrypt a manuscript offered to it until the publication declines it or the author withdraws it, and refuse them any new decryption after that.
+3. Let the renderer decrypt a manuscript only while an agreement covering it is in force, and only the version the publication has approved.
+4. Let the renderer build and publish a site when asked by the author of a manuscript the site carries or has carried, a holder, or someone the holders have authorised.
+5. Make a manuscript's gates immutable once it is encrypted, so that no one but the implementation's governance, by publishing new code, can change them.
+6. Check every gate against the ledger at the moment it is asked, so that an ending or a withdrawal counts from the moment it is recorded.
+7. When an agreement includes monetization, release the manuscript's text to a reader only once the agreed check passes on the ledger.
+8. Keep whether, and for how long, a manuscript sits behind the reader gate unchanged for as long as the agreement lasts, so that changing it takes a new agreement.
+### 7. The press
+The press turns an author's signed manuscript into a page a reader can read, and every decryption happens inside it: for the author, for a publication's reviewers, for building pages and for readers who pass the reader gate. It is the only technical part of the protocol that must hold a manuscript decrypted, so two things about it have to be trusted: the hardware and the people who own it. Everything else it does can be checked. It has three layers: the hardware, the nodes that run on it, and the code the nodes run.
+#### Hardware
+The press runs in sealed environments: hardware that lets no one, not even its owner, see into the code as it runs or interfere with it, and that can attest to which code that is. The protocol trusts the hardware to keep that promise, and trusts its owners not to collude against the rights this paper gives authors and publications. Neither trust is ever perfect, but both can be raised to an acceptable degree: for example, by federated governance among a diverse set of node operators, or by collateral freedom: running on a compute network whose operators serve so many other clients that turning against one would cost them too much.
+#### Nodes
+Each node runs the press's code and holds the press's keys for decryption and signing. The keys can be rotated, and there is a method to recover them. Anyone can read and run the code, but running a copy gets no one past a gate: the keys stay inside the nodes, and the hardware attests which code uses them.
+#### Code
+The code is a set of pure functions, each addressed by its content and published by the implementation's governance. The gates (section 6) are among them, and every decryption must pass one: the decryption that opens a manuscript to its author or to a publication's reviewers, and the renderer, which builds a publication's pages.
+In a build, the renderer first decrypts the manuscripts whose pages need updating, when the gates pass. It renders them into HTML with the publication's templates and configuration, which are content-addressed and recorded on the ledger by the publication. Monetized text is encrypted again under the reader gate. For each page, the renderer signs a colophon, a metadata object that carries a hash of the page and points to the manuscript and the agreement; the manuscript carries the author's address and signature. It builds a Merkle tree of the site's pages and assets and computes the address of the root. Last, it signs a transaction that updates the ledger record linking the publication's name to that root.
+#### What the protocol requires of the press
+An implementation must:
+1. Run the press only in sealed environments that let no one, their owner included, see into the code as it runs or interfere with it, and that attest to which code runs.
+2. Choose node operators who are extremely unlikely to collude against the rights this paper gives authors and publications, whether through federated governance among a diverse set of them or through collateral freedom.
+3. Keep the press's keys for decryption and signing inside the nodes, with a way to rotate and recover them.
+4. Make the gates part of the attested code, and decrypt a manuscript, for anyone, only when a gate passes.
+5. Build pages only with pure functions, each addressed by its content and published by the implementation's governance.
+6. Render a manuscript's body only if it matches the hash its author signed.
+7. Render only with templates and configuration that the publication has recorded on the ledger by their content address.
+8. Encrypt monetized text again under the reader gate.
+9. Sign a colophon for every page, carrying a hash of the page and pointing to the manuscript and the agreement.
+10. Record the root of the site's Merkle tree on the ledger, against the publication's name, in a transaction the press signs.
+### 8. Monetization and costs
+The protocol lays three rails for direct payment, and nothing more. First, a destination: every author account can name a wallet, and so can every publication, so whatever a reader pays goes straight there, with no party in between to hold it. Second, a division: the agreement records how any revenue divides, and the ledger carries out the division, so neither party is paid from the other's hand. Neither party can change it alone: changing it means ending the agreement, which takes the manuscript off the site, and making a new one. Finally, a condition: the reader gate (section 6) can ask for anything the ledger can confirm, such as a payment, a membership or a subscription. It answers only yes or no, and never holds the money.
+Whether a publication uses these rails is up to its business model, and charging nothing is a business model too. So is how a payment that opens many manuscripts, such as a subscription, is divided among them. Whether a manuscript sits behind the gate, and for how long, is part of the agreement; what the gate asks of a reader is the publication's choice. The protocol neither chooses the model nor needs to know it; what it guarantees is what happens on the rails. How money gets into a reader's wallet before they pay, or out of a wallet after, is up to its owner: the protocol requires no particular route and forbids none.
+#### What the protocol requires of payment
+An implementation must:
+1. Offer every publication the three rails: wallets for authors and publications, a division recorded in the agreement, and the reader gate.
+2. Pay every payment made on the rails straight to the wallets the author and the publication name, with no party in between.
+3. Divide it on the ledger as the agreement records it.
+4. Keep the division unchanged for as long as the agreement lasts.
+#### Costs
+Using the protocol costs something: writing to the ledger, storing manuscripts and pages, and running the press. The costs follow the responsibilities of sections 2 and 4: the author keeps their manuscripts available, and the publication keeps its pages available. An implementation can pay these costs for its users, or leave them with the users, who then pay their own way or through a service of their choice.
+### 9. The reader
+A reader can check a page without trusting whoever serves it, by following a chain of authorization from the publication's name to the page. Each link vouches for the next.
+The first link is the name's record on the ledger. It holds the content address of the site's root, not the location of a server, and while the publication stays in the protocol, only the press can change it; every change is a public, dated entry.
+The second link is the site. Every page in the tree is addressed by its content (section 7). A host can store and serve the site, but cannot change a page without changing its address and the root with it, so an altered page no longer matches what the name points to.
+The last link is the page's colophon, signed by the press. It carries a hash of the page and points to the manuscript, which carries the author's signature, and to the agreement on the ledger. Together they show whose manuscript the page carries, that author and publication agreed to publish it, and that it has not changed since it was built.
+Because the chain starts at the name, it also shows that a page is current. A copy of a page from an older build, even one whose author has since withdrawn it, still carries valid signatures, but the name's record no longer leads to it.
+#### What the protocol guarantees a reader
+An implementation must let any reader:
+1. See every change to the name's record.
+2. Check any page against the root the name points to.
+3. Check the colophon's signature.
+4. Trace the page to the author's signature and to the agreement.
+## Glossary
+### press
+The technical third party between author and publication (section 7): sealed hardware, the nodes that run on it, and the open code they run. Every decryption happens inside it, and it is the only technical part of the protocol that holds a manuscript decrypted. It holds its keys for decryption and signing.
+### renderer
+The function of the press that builds a publication's pages: it decrypts the manuscripts an agreement covers, renders them with the publication's templates, signs each page and records the site's root on the ledger.
+### manuscript
+What the author writes and keeps: everything the author produces, for themselves and for publications, before it is rendered. A manuscript is stored encrypted, and readers never see it directly. It replaces "source material", and "work" wherever "work" means the stored, encrypted thing.
+### page
+What the renderer makes from a manuscript under an agreement: signed HTML, which is what readers see. A publication's site is made of pages.
+### work
+The author's creation in the legal sense, as in "the author's rights over their work". A work covers both the manuscript and the pages made from it. Don't use "work" for the encrypted manuscript or for a rendered page.
+### press's keys
+The keys of the press, for decryption and signing. They stay inside the nodes, can be used only by the attested code and, for decryption, only when a gate passes (section 6); they can be rotated and recovered. How many keys that takes is up to the implementation.
+### implementation's governance
+Whoever an implementation puts in charge of its renderer: it publishes the code the nodes run, the gates included (section 7). It can therefore make the renderer refuse an author, a publication or a manuscript, and it is the only party that can change the rules an agreement runs under, by publishing new code. The author and the publication each have their own governance in the same sense (sections 2 and 4).
+### collateral freedom
+Protection that comes from sharing infrastructure with many others: when the operators of a compute network serve so many other clients that turning against one would cost them too much, that one inherits their reliability. Section 7 offers it as one way to raise the trust placed in the owners of the hardware. The term is borrowed from censorship circumvention, where it names hosting on services too important to block.
+### colophon
+The metadata the renderer signs for every page (section 7): a hash of the page, and pointers to the manuscript and the agreement it was built from; the manuscript carries the author's address and signature. Named after the printer's note at the end of a book saying who printed it, when and from which manuscript. Not "imprint", which stays with the publication's name and its responsibility.
+### chain of authorization
+The path from a publication's name to one of its pages, which lets anyone check the page without trusting whoever serves it. It runs from the name, through its record on the ledger, which only the renderer's signing key can update, and the signed set of pages that record points to, to the proof inside each page. That proof shows that the page's text is the manuscript as the author signed it, built under an agreement in force. Section 7 introduces the chain; section 9 follows it from the reader's side. Use "chain of authorization", not "authorization chain".
