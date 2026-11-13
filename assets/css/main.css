@@ -110,13 +110,14 @@
   body.docs a {
     color: inherit;
     text-decoration: none;
+    border: 1px solid white;
   }
   body.docs ul[role=list] {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  body.docs .site-header {
+  .site-header {
     font-family: var(--font-headline);
     text-transform: uppercase;
     justify-content: flex-start;
@@ -135,7 +136,7 @@
     -webkit-backdrop-filter: blur(4px);
     box-shadow: inset 0 -1px 0 var(--hairline);
   }
-  body.docs .site-header__mark {
+  .site-header__mark {
     display: block;
     --tw-leading: calc(var(--spacing) * 6);
     line-height: calc(var(--spacing) * 6);
@@ -144,28 +145,28 @@
     margin: 0;
     font-family: var(--font-mono);
   }
-  body.docs .site-header__divider {
+  .site-header__divider {
     display: none;
     height: calc(var(--spacing) * 5);
     width: 1px;
     background: var(--rule);
   }
-  body.docs .site-header__links {
+  .site-header__links {
     display: flex;
     align-items: center;
     gap: calc(var(--spacing) * 8);
   }
-  body.docs .site-header__links a {
+  .site-header__links a {
     display: block;
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
     color: var(--header-link);
     transition: color 0.15s;
   }
-  body.docs .site-header__links a:hover, body.docs .site-header__links a[aria-current] {
+  .site-header__links a:hover, .site-header__links a[aria-current] {
     color: var(--header-link-hover);
   }
-  body.docs .site-header__menu > summary {
+  .site-header__menu > summary {
     display: flex;
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
@@ -175,20 +176,20 @@
     border-radius: var(--radius-md);
     list-style: none;
   }
-  body.docs .site-header__menu > summary::-webkit-details-marker {
+  .site-header__menu > summary::-webkit-details-marker {
     display: none;
   }
-  body.docs .site-header__menu > summary:hover {
+  .site-header__menu > summary:hover {
     background: var(--rule-faint);
   }
-  body.docs .site-header__menu > summary svg {
+  .site-header__menu > summary svg {
     display: block;
     height: auto;
     width: calc(var(--spacing) * 2.5);
     max-width: none;
     margin: 0;
   }
-  body.docs .site-header__menu-panel {
+  .site-header__menu-panel {
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -197,9 +198,43 @@
     padding-top: calc(var(--spacing) * 4);
     padding-bottom: calc(var(--spacing) * 8);
     top: var(--header-h);
-    width: min(var(--aside-w), 100vw);
     background: var(--bg);
-    border-right: 1px solid var(--rule);
+    width: 100vw;
+    height: calc(100vh - var(--header-h));
+  }
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+  }
+  .site-header__actions a {
+    display: flex;
+    color: var(--header-link);
+    transition: color 0.15s;
+  }
+  .site-header__actions a:hover, .site-header__actions a:focus-visible {
+    color: var(--header-link-hover);
+  }
+  .icon {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+    fill: currentColor;
+  }
+  .site-header__links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .site-header__links a {
+    display: block;
+    color: var(--header-link);
+    transition: color 0.15s;
+  }
+  .site-header__links a:hover, .site-header__links a[aria-current] {
+    color: var(--header-link-hover);
   }
   @media (min-width: 640px) {
     body.docs .site-header {

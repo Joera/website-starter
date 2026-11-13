@@ -80,9 +80,9 @@
     @apply fixed bottom-0 left-0 overflow-y-auto px-5 pt-4 pb-8;
 
     top: var(--header-h); // custom token
-    width: min(var(--aside-w), 100vw); // custom token
     background: var(--bg);
-    border-right: 1px solid var(--rule);
+    width: 100vw;
+    height: calc(100vh - var(--header-h));
 }
 
 // Right-aligned site-wide links (github / agents / download). Icon only — the
