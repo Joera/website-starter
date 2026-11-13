@@ -2,27 +2,32 @@
 //
 // Stacked on small screens, a single row from 640px.
 
-body.docs .site-footer {
-    @apply w-full px-4 pb-16;
-
-    max-width: var(--measure); // custom token
+.site-footer {
+    width: 100%;
+    max-width: var(--measure);
+    padding: 0 1rem 4rem;
     box-sizing: border-box;
 }
 
-body.docs .site-footer__inner {
-    @apply flex flex-col items-center justify-between gap-5 pt-8 text-xs;
-
+.site-footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-top: 2rem;
     border-top: 1px solid var(--rule-faint);
     color: var(--text-muted);
 
     p {
-        @apply m-0;
+        margin: 0;
     }
 }
 
-body.docs .site-footer__signature {
-    font-family: var(--font-mono); // custom: token font
+.site-footer__signature {
+    font-family: var(--font-mono);
 }
+
 
 // ---------- Breakpoints (Tailwind sm / md / lg) ----------
 
