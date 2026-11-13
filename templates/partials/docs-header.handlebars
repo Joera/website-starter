@@ -13,7 +13,12 @@
     <a class="site-header__mark" href="{{path}}"{{#if (eq slug ../slug)}} aria-current="page"{{/if}}>{{or custom.site_mark "Soul2Soul"}}</a>
     {{/each}}
 
-    <span class="site-header__divider" aria-hidden="true"></span>
+    <div class="site-header__actions">
+       
+        <a href="https://github.com/Incredibly-Neutral/Soul2Soul" target="_blank" rel="noopener" aria-label="GitHub">{{> icon-github}}</a>
+        <a href="/llms.txt" target="_blank" rel="noopener" aria-label="Agents (llms.txt)">{{> icon-agents}}</a>
+        {{!-- <a href="/assets/polyphony-white-paper.pdf" target="_blank" rel="noopener" aria-label="Download (PDF)">{{> icon-download}}</a> --}}
+    </div>
 
 
 </header>
