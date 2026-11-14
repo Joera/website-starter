@@ -5,3 +5,4 @@ ipfs-upload.js
 pnpm-lock.yaml
 html
 dev-assistant/dist/
+.build
