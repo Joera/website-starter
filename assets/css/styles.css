@@ -265,8 +265,9 @@ article.block > div .date {
   max-width: 690px;
   font-family: "Manrope", sans-serif;
   font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 1.2;
+  font-size: 1.55rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.25;
   margin: 0;
   color: #355C53;
   font-size: 1.6rem;
@@ -298,6 +299,7 @@ article.block > div .date {
   width: 100%;
   max-width: 690px;
   margin-top: 6rem;
+  margin-bottom: 3rem;
 }
 #post #post-header .tag {
   font-family: "Martian Mono", sans-serif;
@@ -310,13 +312,11 @@ article.block > div .date {
 #post #post-header h2 {
   font-size: 1rem;
   padding: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 400;
+  font-weight: 700;
   color: #355C53;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem 0;
   font-size: 2.6rem;
-  line-height: 1.175;
+  line-height: 1;
   text-transform: none;
   letter-spacing: 0;
 }
