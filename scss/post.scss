@@ -68,19 +68,23 @@
         
 
         .tag {
-            @include heading-h2;
+            @include uppercase-mono;
             margin-bottom: .25rem;
-            font-family: 'Azeret Mono', monospace;
         }
 
         h2 {
-            @include heading-h1;
+            @include heading-h2;
             color: $teal-darkest;
             margin-bottom: 1.5rem;
             font-size: 2.6rem;
             line-height: 1.175;
             text-transform: none;
             letter-spacing: 0;
+        }
+
+        .author, .date {
+
+            @include uppercase-mono;
         }
     }
 

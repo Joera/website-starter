@@ -6,16 +6,20 @@
     {{> header}}
     <main>
         
-        <section class="container small_container">
-          
-            <article class="post" id="{{this.id}}" author="{{author}}">  
+            <article class="post" id="{{this.id}}" author="{{author}}"> 
+
+                <section class="container small_container">
+                    <div id="post-header">
+                        <h2>{{title}}</h2> 
+                        <div class="author">{{author}}</div> 
+                        <span class='date'>{{formatDate creationDate}}</span>
+                    </div>
+                </section>
                 
-                <h2>{{title}}</h2> 
-                <div class="author">{{author}}</div> 
-                <span class='date'>{{formatDate creationDate}}</span>
-                
-                {{{extract_images content}}}    
-                pnpm sas      
+                <section class="container small_container">
+                    {{{extract_images content}}}   
+                </section> 
+              
             </article>
         
         </section>

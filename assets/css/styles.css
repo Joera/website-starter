@@ -299,29 +299,32 @@ article.block > div .date {
   margin-top: 6rem;
 }
 #post #post-header .tag {
+  font-family: "Martian Mono", sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+#post #post-header h2 {
   font-size: 1rem;
   padding: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 400;
-  margin-bottom: 0.25rem;
-  font-family: "Azeret Mono", monospace;
-}
-#post #post-header h2 {
-  padding: 0;
-  margin: 0;
-  text-transform: uppercase;
-  font-family: "Michroma", sans-serif;
-  font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 1.33;
-  letter-spacing: 1px;
   color: #355C53;
   margin-bottom: 1.5rem;
   font-size: 2.6rem;
   line-height: 1.175;
   text-transform: none;
   letter-spacing: 0;
+}
+#post #post-header .author, #post #post-header .date {
+  font-family: "Martian Mono", sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1rem;
 }
 #post #main-image {
   margin: 3rem auto 6rem auto;
