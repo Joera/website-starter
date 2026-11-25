@@ -11,6 +11,10 @@ article.block {
         margin-right: 0;
     }
 
+    a {
+        text-decoration: none;
+    }
+
 
     svg.background {
         position: absolute;
@@ -22,15 +26,16 @@ article.block {
     }
 
     > div {
-        padding: 4rem;
+        padding: 1.5rem;
         
         h3 {
-            color: white;
+           @include heading-h3;
         }
 
         .date {
-            color: white;
+           
             margin-bottom: .25rem;
+            @include uppercase-mono;
         }
     }
 }
