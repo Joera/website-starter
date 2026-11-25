@@ -198,9 +198,8 @@ header svg {
   margin-top: -30px;
 }
 header h1 {
-  text-transform: none;
-  color: #0081b0;
-  font-family: "Ringside Narrow A", "Ringside Narrow B";
+  text-transform: uppercase;
+  color: #191B1C;
   font-style: normal;
   font-weight: 700;
   font-size: 2.2rem;
@@ -234,7 +233,6 @@ article.block > div .date {
 }
 
 #post {
-  margin-top: 5rem;
   width: 100%;
   align-items: center;
 }

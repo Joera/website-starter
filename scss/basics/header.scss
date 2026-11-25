@@ -1,3 +1,5 @@
+@use '../styleguide/colours' as *;
+
 header {
 
     display: flex;
@@ -33,9 +35,8 @@ header {
     }
 
     h1 {
-        text-transform: none;
-        color: #0081b0;
-        font-family: "Ringside Narrow A", "Ringside Narrow B";
+        text-transform: uppercase;
+        color: $gray-black;
         font-style: normal;
         font-weight: 700;
         font-size: 2.2rem;
