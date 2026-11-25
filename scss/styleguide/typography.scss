@@ -61,16 +61,15 @@ p {
 
     font-size: 1rem;
     padding: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 400;
+    font-weight: 700;
 }
 
 @mixin heading-h3 {
   font-family: "Manrope", sans-serif;
   font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 1.2;
+  font-size: 1.55rem;
+  margin-bottom: .3rem;
+  line-height: 1.25;
   margin: 0;
 }
 
