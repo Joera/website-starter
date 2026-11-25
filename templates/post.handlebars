@@ -2,20 +2,20 @@
 <html lang="{{language}}">
 {{> head }}
 
-<body id="blog">
+<body id="post">
     {{> header}}
     <main>
         
-        <section id="blog_container" class="container small_container">
+        <section class="container small_container">
           
-            <article class="blog" id="{{this.id}}" author="{{author}}">  
+            <article class="post" id="{{this.id}}" author="{{author}}">  
                 
                 <h2>{{title}}</h2> 
                 <div class="author">{{author}}</div> 
                 <span class='date'>{{formatDate creationDate}}</span>
                 
-               
-                {{{extract_images content}}}          
+                {{{extract_images content}}}    
+                pnpm sas      
             </article>
         
         </section>

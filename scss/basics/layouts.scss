@@ -1,17 +1,85 @@
-@use '../styleguide/breakpoints';
+@use '../styleguide/breakpoints' as *;
 
-.flex_row {
+@mixin container {
+
     display: flex;
-    
+    flex-direction: column;
+    width: 100%;
+
+    // @include breakpoint('sm') {
+    //     width: calc(100% - 1.5rem);
+    // }
+}
+
+.container {
+    @include container;
+}
+
+@mixin container-large {
+    max-width: 1200px;
+}
+
+.container-large {
+    @include container;
+    @include container-large;
+}
+
+@mixin container-small {
+    max-width: 900px;
+}
+
+.container-small {
+    @include container;
+    @include container-small;
+}
+
+@mixin container-smaller {
+    max-width: 690px;
+}
+
+.container-smaller {
+    @include container;
+    @include container-smaller;
+}
+
+@mixin container-full {
+    width: 100%;
+}
+
+.container-full {
+    @include container;
+    @include container-full;
+}
+
+.flex-row {
+
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
 
-    @media screen and (min-width: breakpoints.$breakpoint-medium) {
+    @include breakpoint('sm') {
+
+        display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
     }
 
+    > * {
+        flex: 1;
+    }
+}
+
+.flex-stretch {
+
+    align-items: stretch;
+}
+
+.flex-centered { 
+
+    justify-content: center;
+    align-items: center;
 }
 
 

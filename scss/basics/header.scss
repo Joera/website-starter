@@ -4,6 +4,15 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    .large_container {
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+    }
  
 
     a {

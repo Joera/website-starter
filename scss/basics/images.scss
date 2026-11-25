@@ -1,4 +1,4 @@
-@use '../styleguide/breakpoints';
+@use '../styleguide/breakpoints' as *;
 
 .images_container {
     margin: 3rem auto 0 auto;
@@ -8,7 +8,7 @@
     justify-content: space-between;
     gap: 3rem;
 
-    @media screen and (min-width: breakpoints.$breakpoint-medium) {
+    @include breakpoint('md') {
         flex-direction: row;
     }
 
@@ -19,7 +19,7 @@
 
         &:first-of-type {
             display: none;
-            @media screen and (min-width: breakpoints.$breakpoint-medium) {
+            @include breakpoint('md') {
                 display: block;
             }
         }
