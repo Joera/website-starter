@@ -218,6 +218,7 @@ article.block {
   position: relative;
   width: calc(33.3% - 3rem);
   margin-right: 1.5rem;
+  flex: auto;
 }
 article.block:last-of-type {
   margin-right: 0;
