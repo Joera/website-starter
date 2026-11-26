@@ -9,6 +9,11 @@ main#home {
     justify-content: flex-start;
     align-items: center;
     padding-top: 4.5rem;
+
+    section.container { 
+
+        flex-wrap: wrap;
+    }
 }
 
 article.block {

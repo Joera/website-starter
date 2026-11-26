@@ -213,14 +213,19 @@ main#home {
   align-items: center;
   padding-top: 4.5rem;
 }
+main#home section.container {
+  flex-wrap: wrap;
+}
 
 article.block {
   position: relative;
   width: calc(33.3% - 3rem);
   margin-right: 1.5rem;
   flex: auto;
+  border-top: 1px solid #ddd;
+  margin-bottom: 1.5rem;
 }
-article.block:last-of-type {
+article.block:nth-of-type(3) {
   margin-right: 0;
 }
 article.block a {
@@ -246,6 +251,7 @@ article.block > div h3 {
   margin: 0;
 }
 article.block > div .date {
+  display: block;
   margin-bottom: 0.25rem;
   font-family: "Martian Mono", sans-serif;
   letter-spacing: 0.5px;
