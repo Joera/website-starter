@@ -9,7 +9,7 @@
               "slug": "posts",
               "filters": [{"postType": "post"}],
               "sortBy" : "modifiedDate",
-              "sortDirection": "desc"
+              "sortDirection": "asc"
             }
           ]
         },
