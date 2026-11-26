@@ -225,7 +225,7 @@ article.block {
   border-top: 1px solid #ddd;
   margin-bottom: 1.5rem;
 }
-article.block:nth-of-type(3) {
+article.block:nth-of-type(3n) {
   margin-right: 0;
 }
 article.block a {
