@@ -2,13 +2,13 @@
   "templateConfig": [
         {
           "reference": "home",
-          "file": "home.handlebars",
+            "file": "home.handlebars",
           "path": "/",
           "collections": [
             {
               "slug": "posts",
               "filters": [{"postType": "post"}],
-              "sortBy" : "creationDate",
+              "sortBy" : "modifiedDate",
               "sortDirection": "desc"
             }
           ]
