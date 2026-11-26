@@ -8,7 +8,8 @@
             {
               "slug": "posts",
               "filters": [{"postType": "post"}],
-              "sortBy" : "creationDate"
+              "sortBy" : "modifiedDate",
+              "sortDirection": "desc"
             }
           ]
         },
