@@ -60,4 +60,13 @@ article.block {
             font-size: .85rem;
         }
     }
+
+    &:first-of-type {
+
+        width: calc(66% - 3.5rem);
+
+        h3 { 
+            font-size: 2.4rem;
+        }
+    }
 }
